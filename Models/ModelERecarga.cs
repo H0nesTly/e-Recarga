@@ -7,6 +7,7 @@ using System.Web;
 
 namespace e_Recarga.Models
 {
+    
     public class Posto
     {
         public Posto()
@@ -19,18 +20,18 @@ namespace e_Recarga.Models
 
         public string CorrenteCarregamento { get; set; }
         public string NumeroTomadas { get; set; }
-        
+
 
 
         [ForeignKey("PotenciaPosto")]
         public int PotenciaID { get; set; }
         public virtual Potencia PotenciaPosto { get; set; }
-        
+
         [ForeignKey("EstacaoCarregamentoPosto")]
         public int EstacaoCarregamentoID { get; set; }
         public virtual EstacaoCarregamento EstacaoCarregamentoPosto { get; set; }
 
-        public virtual ICollection<Tomada> Tomadas { get; set; }
+        public virtual ICollection<TomadaPosto> TomadaPostos { get; set; }
 
         public virtual ICollection<Reserva> Reservas { get; set; }
     }
@@ -56,15 +57,16 @@ namespace e_Recarga.Models
     {
         public Tomada()
         {
-            Postos = new HashSet<Posto>();
+            TomadaPostos = new HashSet<TomadaPosto>();
         }
 
         [Key]
         public int ID { get; set; }
         public string TipoTomada { get; set; }
 
-        public virtual ICollection<Posto> Postos { get; set; }
+        public virtual ICollection<TomadaPosto> TomadaPostos { get; set; }
     }
+    
 
     public class Potencia
     {
