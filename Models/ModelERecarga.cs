@@ -18,7 +18,11 @@ namespace e_Recarga.Models
         [Key]
         public int ID { get; set; }
 
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string CorrenteCarregamento { get; set; }
+        [StringLength(3, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string NumeroTomadas { get; set; }
 
 
@@ -49,6 +53,7 @@ namespace e_Recarga.Models
         public int PostoID { get; set; }
         public virtual Posto PostoTomadaPosto { get; set; }
 
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public double PrecoMinuto { get; set; }
 
     }
@@ -62,6 +67,8 @@ namespace e_Recarga.Models
 
         [Key]
         public int ID { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string TipoTomada { get; set; }
 
         public virtual ICollection<TomadaPosto> TomadaPostos { get; set; }
@@ -77,7 +84,11 @@ namespace e_Recarga.Models
 
         [Key]
         public int ID { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string PotenciaNominal { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string TipoPotencia { get; set; }
 
         public virtual ICollection<Posto> Postos { get; set; }
@@ -93,6 +104,8 @@ namespace e_Recarga.Models
         [Key]
         public int ID { get; set; }
 
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string Designacao { get; set; }
 
         [ForeignKey("UtilizadorEstacao")]
@@ -129,8 +142,14 @@ namespace e_Recarga.Models
         [Key]
         public int ID { get; set; }
 
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string Matricula { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string Marca { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string Modelo { get; set; }
 
 
@@ -147,8 +166,11 @@ namespace e_Recarga.Models
         [Key]
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public DateTime DataReserva { get; set; }
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public DateTime DataPrevInicioCarregamento { get; set; }
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public DateTime DataPrevFimCarregamento { get; set; }   //atributo que é o resultado da somada de 12h ao atributo DataPrevInicioCarregamento
 
         [ForeignKey("UtilizadorReserva")]
@@ -170,8 +192,10 @@ namespace e_Recarga.Models
         [Key]
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public DateTime DataInicioCarregamento { get; set; }
-        public DateTime DataFimCarregamento { get; set; }
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
+        public DateTime DataFimCarregamento { get; set; }      
 
         
         [ForeignKey("UtilizadorCarregamento")]
@@ -201,9 +225,15 @@ namespace e_Recarga.Models
 
         [Key]
         public int ContaBancariaId { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string NumeroCartao { get; set; }
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public DateTime Validade { get; set; }
+        [StringLength(10, ErrorMessage = "Tamanho do campo excedido.")]
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string CVV { get; set; }
+        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public bool Ativa { get; set; }
         
 

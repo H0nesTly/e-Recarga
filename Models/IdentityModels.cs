@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -11,14 +13,35 @@ namespace e_Recarga.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        [StringLength(150)]
-        public string Morada { get; set; }
-        [StringLength(150)]
-        public string Freguesia { get; set; }
-        [StringLength(150)]
-        public string Concelho { get; set; }
-        [StringLength(150)]
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
         public string Nome { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Morada { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Concelho { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Freguesia { get; set; }
+        [StringLength(10, ErrorMessage = "Tamanho do campo excedido.")]
+        [RegularExpression(@"^\d{4}(-\d{3})?$", ErrorMessage = "Formato código postal incorreto.")]
+        public string CodigoPostal { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Localidade { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Telemovel { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Telefone { get; set; }
+        [StringLength(9, ErrorMessage = "Tamanho do campo excedido.")]
+        public string NIF { get; set; }
+        public DateTime? DataNascimento { get; set; }
+        [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
+        public string Pais { get; set; }
+
+
+        public virtual ICollection<Reserva> Reservas { get; set; }
+        public virtual ICollection<Carregamento> Carregamentos { get; set; }
+        public virtual ICollection<Veiculo> Veiculos { get; set; }
+        public virtual ICollection<EstacaoCarregamento> EstacaoCarregamentos { get; set; }
+        public virtual ICollection<ContaBancaria> ContaBancarias { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -32,11 +55,11 @@ namespace e_Recarga.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("e_RecargaDB", throwIfV1Schema: false)
+            : base("e-RecargaDB", throwIfV1Schema: false)
         {
             Database.SetInitializer(new ApplicationDbInitializer());
             //Other template initializers
-            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()
@@ -101,15 +124,15 @@ namespace e_Recarga.Models
             var utilizadornomalrole = CreateRole(roleManager, "UtilizadorNormal");
 
             //Create the SuperAdmin user
-            
-            CreateUser(userManager, saname, sapassword, "", "", "", "", superadminrole);
+           
+            CreateUser(userManager, saname, sapassword, "", "", "", "", "", "", "", "", null, "", "", superadminrole);
 
             //Create Admin user 
-            CreateUser(userManager, aname, apassword, "", "", "", "", adminrole);
+            CreateUser(userManager, aname, apassword, "", "", "", "", "", "", "", "", null, "", "", adminrole);
 
-            CreateUser(userManager, rpname, rppassword, "", "", "", "", redeproprietariarole);
+            CreateUser(userManager, rpname, rppassword, "", "", "", "", "", "", "", "", null, "", "", redeproprietariarole);
 
-            CreateUser(userManager, unname, unpassword, "", "", "", "", utilizadornomalrole);
+            CreateUser(userManager, unname, unpassword, "", "", "", "", "", "", "", "", null, "", "", utilizadornomalrole);
 
             CreateData();
         }
@@ -195,12 +218,24 @@ namespace e_Recarga.Models
             return role;
         }
 
-        private static ApplicationUser CreateUser(ApplicationUserManager userManager, string name, string password, string morada, string freguesia, string concelho, string nome, IdentityRole role)
+        public string Nome { get; set; }
+        public string Morada { get; set; }
+        public string Concelho { get; set; }
+        public string Freguesia { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Localidade { get; set; }
+        public string Telemovel { get; set; }
+        public string Telefone { get; set; }
+        public string NIF { get; set; }
+        public DateTime? DataNascimento { get; set; }
+        public string Pais { get; set; }
+
+        private static ApplicationUser CreateUser(ApplicationUserManager userManager, string name, string password, string morada, string concelho, string freguesia, string codigopostal, string localidade, string telemovel, string telefone, string nif, DateTime? datanascimento, string pais, string nome, IdentityRole role)
         {
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name, Morada = morada/*, Freguesia = freguesia, Concelho = concelho, Nome = nome*/};
+                user = new ApplicationUser { UserName = name, Email = name, Morada = morada, Concelho = concelho, Freguesia = freguesia, CodigoPostal = codigopostal, Localidade = localidade, Telemovel = telemovel, Telefone = telefone, NIF = nif, DataNascimento = datanascimento, Pais = pais, Nome = nome };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
