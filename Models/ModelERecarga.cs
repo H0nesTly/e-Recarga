@@ -13,6 +13,7 @@ namespace e_Recarga.Models
         public Posto()
         {
             Reservas = new HashSet<Reserva>();
+            TomadaPostos = new HashSet<TomadaPosto>();
         }
 
         [Key]
