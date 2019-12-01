@@ -139,7 +139,7 @@ namespace e_Recarga.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
 
         //
@@ -151,8 +151,15 @@ namespace e_Recarga.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , Nome = model.Nome, NIF = model.NIF, CodigoPostal = model.CodigoPostal, Freguesia = model.Freguesia,
+                Concelho = model.Concelho, DataNascimento = model.DataNascimento, Localidade = model.Localidade, Morada = model.Morada, Pais = model.Pais,Telefone = model.Telefone, Telemovel = model.Telemovel};
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (model.idTipoSelecionado == 1)
+                    UserManager.AddToRole(user.Id, "RedeProprietaria");
+                else
+                    UserManager.AddToRole(user.Id, "UtilizadorNormal");
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
