@@ -20,6 +20,78 @@ namespace e_Recarga.Models
         public IList<AuthenticationDescription> OtherLogins { get; set; }
     }
 
+    public class EditDadosPessoaisViewModel
+    {
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "Campo {0} excede os caracters {1}.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "Campo {0} excede os caracters {1}.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "País")]
+        public string Pais { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "Campo {0} excede os caracters {1}.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Concelho")]
+        public string Concelho { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "Campo {0} excede os caracters {1}.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Freguesia")]
+        public string Freguesia { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "Campo {0} excede os caracters {1}.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Localidade")]
+        public string Localidade { get; set; }
+
+        [Required]
+        [RegularExpression(@"^\d{4}(-\d{3})?$", ErrorMessage = "Formato código postal incorreto.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Código Postal")]
+        public string CodigoPostal { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "Campo {0} excede os caracters {1}.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Morada")]
+        public string Morada { get; set; }
+
+        [Required]
+        [StringLength(9, ErrorMessage = "Campo {0} excede os caracters {1}.", MinimumLength = 9)]
+        [DataType(DataType.Text)]
+        [Display(Name = "Telefone")]
+        public string Telefone { get; set; }
+
+        [Required]
+        [StringLength(9, ErrorMessage = "Campo {0} excede os caracters {1}.", MinimumLength = 9)]
+        [DataType(DataType.Text)]
+        [Display(Name = "Telemovel")]
+        public string Telemovel { get; set; }
+
+        [Required]
+        [StringLength(9, ErrorMessage = "Campo {0} excede os caracters {1}.", MinimumLength = 9)]
+        [DataType(DataType.Text)]
+        [Display(Name = "NIF")]
+        public string NIF { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
+        [Display(Name = "Data de Nascimento")]
+        public System.DateTime? DataNascimento { get; set; }
+    }
+
     public class FactorViewModel
     {
         public string Purpose { get; set; }

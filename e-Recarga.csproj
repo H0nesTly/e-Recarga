@@ -246,6 +246,7 @@
     <Content Include="Views\Localizacao\Details.cshtml" />
     <Content Include="Views\Localizacao\Edit.cshtml" />
     <Content Include="Views\Localizacao\Index.cshtml" />
+    <Content Include="Views\Manage\EditDadosPessoais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

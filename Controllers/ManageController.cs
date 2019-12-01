@@ -51,6 +51,65 @@ namespace e_Recarga.Controllers
         }
 
         //
+        // GET: /Manage/EditDadosPessoais
+        public ActionResult EditDadosPessoais()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            EditDadosPessoaisViewModel editDados =
+                new EditDadosPessoaisViewModel();
+
+            editDados.Telefone = user.Telefone;
+            editDados.DataNascimento = user.DataNascimento;
+            editDados.Telemovel = user.Telemovel;
+            editDados.Pais = user.Pais;
+            editDados.Nome = user.Nome;
+            editDados.NIF = user.NIF;
+            editDados.Morada = user.Morada;
+            editDados.Localidade = user.Localidade;
+            editDados.Concelho = user.Concelho;
+            editDados.CodigoPostal = user.CodigoPostal;
+            editDados.Freguesia = user.Freguesia;
+            editDados.Email = user.Email;
+
+            return View(editDados);
+        }
+
+        //
+        // POST: /Manage/EditDadosPessoais
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditDadosPessoais(EditDadosPessoaisViewModel editDados)
+        {
+            if (!ModelState.IsValid)
+            {
+                //Modelo não válido
+                return View(editDados);
+            }
+
+            var user = await UserManager.FindByNameAsync(editDados.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("Index", "Home");
+            }
+
+            user.CodigoPostal = editDados.CodigoPostal;
+            user.Concelho = editDados.Concelho;
+            user.DataNascimento = editDados.DataNascimento;
+            user.Freguesia = editDados.Freguesia;
+            user.Localidade = editDados.Localidade;
+            user.Morada = editDados.Morada;
+            user.Pais = editDados.Pais;
+            user.Nome = editDados.Nome;
+            user.Telefone = editDados.Telefone;
+            user.Telemovel = editDados.Telemovel;
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
+        //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -129,6 +188,8 @@ namespace e_Recarga.Controllers
             }
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
+
+
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
