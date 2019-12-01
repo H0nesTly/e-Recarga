@@ -173,6 +173,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalizacaoController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VeiculosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,6 +248,11 @@
     <Content Include="Views\Localizacao\Edit.cshtml" />
     <Content Include="Views\Localizacao\Index.cshtml" />
     <Content Include="Views\Manage\EditDadosPessoais.cshtml" />
+    <Content Include="Views\Veiculos\Create.cshtml" />
+    <Content Include="Views\Veiculos\Delete.cshtml" />
+    <Content Include="Views\Veiculos\Details.cshtml" />
+    <Content Include="Views\Veiculos\Edit.cshtml" />
+    <Content Include="Views\Veiculos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
