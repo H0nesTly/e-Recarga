@@ -7,9 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using e_Recarga.Models;
+using e_Recarga.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace e_Recarga.Controllers
 {
+    [Authorize]
     public class VeiculosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -39,8 +42,9 @@ namespace e_Recarga.Controllers
         // GET: Veiculos/Create
         public ActionResult Create()
         {
-            ViewBag.UtilizadorID = new SelectList(db.ApplicationUsers, "Id", "Nome");
-            return View();
+            VeiculosViewModel viewModel = new VeiculosViewModel();
+            viewModel.CodeDoUser = User.Identity.GetUserId();
+            return View(viewModel);
         }
 
         // POST: Veiculos/Create
@@ -48,16 +52,21 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Matricula,Marca,Modelo,UtilizadorID")] Veiculo veiculo)
+        public ActionResult Create(VeiculosViewModel veiculo)
         {
             if (ModelState.IsValid)
             {
-                db.Veiculos.Add(veiculo);
+                Veiculo veiculoObj = new Veiculo();
+                veiculoObj.UtilizadorID = veiculo.CodeDoUser;
+                veiculoObj.Marca = veiculo.Marca;
+                veiculoObj.Matricula = veiculo.Matricula;
+                veiculoObj.Modelo = veiculo.Modelo;
+
+                db.Veiculos.Add(veiculoObj);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UtilizadorID = new SelectList(db.ApplicationUsers, "Id", "Nome", veiculo.UtilizadorID);
             return View(veiculo);
         }
 
