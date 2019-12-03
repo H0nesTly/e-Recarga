@@ -25,10 +25,15 @@
                     {
                         if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("RedeProprietaria"))
                         {
-                           
+
                         }
                     }
                     <li>@Html.ActionLink("Estação Carregamento", "Index", "EstacaoCarregamento")</li>
+                    <li>@Html.ActionLink("Posto", "Index", "Posto")</li>
+                    <li>@Html.ActionLink("Veiculo", "Index", "Veiculos")</li>
+                    <li>@Html.ActionLink("Reserva", "Index", "Reserva")</li>
+                    <li>@Html.ActionLink("Tomada Posto", "Index", "TomadaPosto")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

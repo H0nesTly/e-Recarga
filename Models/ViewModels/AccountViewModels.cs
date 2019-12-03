@@ -162,9 +162,9 @@ namespace e_Recarga.Models
         [Display(Name = "NIF")]
         public string NIF { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
         [Display(Name = "Data de Nascimento")]
         public System.DateTime? DataNascimento { get; set; }
     }

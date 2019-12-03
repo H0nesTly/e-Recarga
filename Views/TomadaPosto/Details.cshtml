@@ -1,0 +1,42 @@
+﻿@model e_Recarga.Models.TomadaPosto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TomadaPosto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PostoTomadaPosto.CorrenteCarregamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostoTomadaPosto.CorrenteCarregamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TomadaTomadaPosto.TipoTomada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TomadaTomadaPosto.TipoTomada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecoMinuto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecoMinuto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

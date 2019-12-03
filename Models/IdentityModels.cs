@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -67,15 +68,16 @@ namespace e_Recarga.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Localizacao> Localizacaos { get; set; }
+        public DbSet<Concelho> Concelhoes { get; set; }
+        public DbSet<Distrito> Distritos { get; set; }
         public DbSet<Veiculo> Veiculos { get; set; }
         public DbSet<ContaBancaria> ContaBancarias { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
-        public DbSet<Carregamento> Carregamentos { get; set; }
+        public DbSet<Carregamento> Carregamentoes { get; set; }
         public DbSet<Tomada> Tomadas { get; set; }
         public DbSet<Potencia> Potencias { get; set; }
         public DbSet<TomadaPosto> TomadaPostos { get; set; }
-        public DbSet<Posto> Postos { get; set; }
+        public DbSet<Posto> Postoes { get; set; }
         public DbSet<EstacaoCarregamento> EstacaoCarregamentoes { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
     }
@@ -167,22 +169,22 @@ namespace e_Recarga.Models
 
             Potencia potencia1 = new Potencia()
             {
-                PotenciaNominal = "3.68 Kw",
+                PotenciaNominalKw = "3.68",
                 TipoPotencia = "Normal"
             };
             Potencia potencia2 = new Potencia()
             {
-                PotenciaNominal = "7.4 Kw",
+                PotenciaNominalKw = "7.4",
                 TipoPotencia = "Normal"
             };
             Potencia potencia3 = new Potencia()
             {
-                PotenciaNominal = "22 Kw",
+                PotenciaNominalKw = "22",
                 TipoPotencia = "Semi Rápido"
             };
             Potencia potencia4 = new Potencia()
             {
-                PotenciaNominal = "50 Kw",
+                PotenciaNominalKw = "50",
                 TipoPotencia = "Rápido"
             };
             dbContext.Potencias.Add(potencia1);
@@ -191,17 +193,92 @@ namespace e_Recarga.Models
             dbContext.Potencias.Add(potencia4);
 
 
-            Localizacao localizacao1 = new Localizacao()
-            {
-                Regiao = "Coimbra",
-                Concelho = "Santo Antonio Dos Olivais",
-                Freguesia = "Santo Antonio Dos Olivais",
-                Localidade = "Solum",
-                Longitude = "00.00",
-                Latitude = "00.00"
-            };
-            dbContext.Localizacaos.Add(localizacao1);
+            Distrito distrito1 = new Distrito() { Nome = "Aveiro" };
+            Distrito distrito2 = new Distrito() { Nome = "Beja" };
+            Distrito distrito3 = new Distrito() { Nome = "Braga" };
+            Distrito distrito4 = new Distrito() { Nome = "Bragança" };
+            Distrito distrito5 = new Distrito() { Nome = "Castelo Branco" };
+            Distrito distrito6 = new Distrito() { Nome = "Coimbra" };
+            Distrito distrito7 = new Distrito() { Nome = "Evora" };
+            Distrito distrito8 = new Distrito() { Nome = "Faro" };
+            Distrito distrito9 = new Distrito() { Nome = "Guarda" };
+            Distrito distrito10 = new Distrito() { Nome = "Leiria" };
+            Distrito distrito11 = new Distrito() { Nome = "Lisboa" };
+            Distrito distrito12 = new Distrito() { Nome = "Portalegre" };
+            Distrito distrito13 = new Distrito() { Nome = "Porto" };
+            Distrito distrito14 = new Distrito() { Nome = "Santarem" };
+            Distrito distrito15 = new Distrito() { Nome = "Setubal" };
+            Distrito distrito16 = new Distrito() { Nome = "Viana do Castelo" };
+            Distrito distrito17 = new Distrito() { Nome = "Vila Real" };
+            Distrito distrito18 = new Distrito() { Nome = "Viseu" };
+            Distrito distrito19 = new Distrito() { Nome = "Ilha da Madeira" };
+            Distrito distrito20 = new Distrito() { Nome = "Ilha do Porto Santo" };
 
+            dbContext.Distritos.Add(distrito1);
+            dbContext.Distritos.Add(distrito2);
+            dbContext.Distritos.Add(distrito3);
+            dbContext.Distritos.Add(distrito4);
+            dbContext.Distritos.Add(distrito5);
+            dbContext.Distritos.Add(distrito6);
+            dbContext.Distritos.Add(distrito7);
+            dbContext.Distritos.Add(distrito8);
+            dbContext.Distritos.Add(distrito9);
+            dbContext.Distritos.Add(distrito10);
+            dbContext.Distritos.Add(distrito11);
+            dbContext.Distritos.Add(distrito12);
+            dbContext.Distritos.Add(distrito13);
+            dbContext.Distritos.Add(distrito14);
+            dbContext.Distritos.Add(distrito15);
+            dbContext.Distritos.Add(distrito16);
+            dbContext.Distritos.Add(distrito17);
+            dbContext.Distritos.Add(distrito18);
+            dbContext.Distritos.Add(distrito19);
+            dbContext.Distritos.Add(distrito20);
+
+            dbContext.SaveChanges();
+
+         
+            Distrito distrito = dbContext.Distritos.SingleOrDefault(d => d.Nome == distrito6.Nome);
+            if (distrito == null)
+                return;
+
+            Concelho concelho1 = new Concelho() { Nome = "Arganil", DistritoID = distrito.ID };
+            Concelho concelho2 = new Concelho() { Nome = "Cantanhede", DistritoID = distrito.ID };
+            Concelho concelho3 = new Concelho() { Nome = "Coimbra", DistritoID = distrito.ID };
+            Concelho concelho4 = new Concelho() { Nome = "Condexa-a-Nova", DistritoID = distrito.ID };
+            Concelho concelho5 = new Concelho() { Nome = "Figueira da Foz", DistritoID = distrito.ID };
+            Concelho concelho6 = new Concelho() { Nome = "Góis", DistritoID = distrito.ID };
+            Concelho concelho7 = new Concelho() { Nome = "Lousã", DistritoID = distrito.ID };
+            Concelho concelho8 = new Concelho() { Nome = "Mira", DistritoID = distrito.ID };
+            Concelho concelho9 = new Concelho() { Nome = "Miranda do Corvo", DistritoID = distrito.ID };
+            Concelho concelho10 = new Concelho() { Nome = "Montemor-o-Velho", DistritoID = distrito.ID };
+            Concelho concelho11 = new Concelho() { Nome = "Oliveira do Hospital", DistritoID = distrito.ID };
+            Concelho concelho12 = new Concelho() { Nome = "Pampilhosa da Serra", DistritoID = distrito.ID };
+            Concelho concelho13 = new Concelho() { Nome = "Penacova", DistritoID = distrito.ID };
+            Concelho concelho14 = new Concelho() { Nome = "Penela", DistritoID = distrito.ID };
+            Concelho concelho15 = new Concelho() { Nome = "Soure", DistritoID = distrito.ID };
+            Concelho concelho16 = new Concelho() { Nome = "Tábua", DistritoID = distrito.ID };
+            Concelho concelho17 = new Concelho() { Nome = "Vila Nova de Poiares", DistritoID = distrito.ID };
+
+            dbContext.Concelhoes.Add(concelho1);
+            dbContext.Concelhoes.Add(concelho2);
+            dbContext.Concelhoes.Add(concelho3);
+            dbContext.Concelhoes.Add(concelho4);
+            dbContext.Concelhoes.Add(concelho5);
+            dbContext.Concelhoes.Add(concelho6);
+            dbContext.Concelhoes.Add(concelho7);
+            dbContext.Concelhoes.Add(concelho8);
+            dbContext.Concelhoes.Add(concelho9);
+            dbContext.Concelhoes.Add(concelho10);
+            dbContext.Concelhoes.Add(concelho11);
+            dbContext.Concelhoes.Add(concelho12);
+            dbContext.Concelhoes.Add(concelho13);
+            dbContext.Concelhoes.Add(concelho14);
+            dbContext.Concelhoes.Add(concelho15);
+            dbContext.Concelhoes.Add(concelho16);
+            dbContext.Concelhoes.Add(concelho17);
+
+            
             dbContext.SaveChanges();
         }
 

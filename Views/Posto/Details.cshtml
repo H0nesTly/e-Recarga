@@ -1,0 +1,50 @@
+﻿@model e_Recarga.Models.Posto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Posto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EstacaoCarregamentoPosto.Designacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstacaoCarregamentoPosto.Designacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PotenciaPosto.PotenciaNominalKw)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PotenciaPosto.PotenciaNominalKw)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CorrenteCarregamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CorrenteCarregamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroTomadas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroTomadas)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
