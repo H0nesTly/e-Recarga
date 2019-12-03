@@ -42,7 +42,7 @@ namespace e_Recarga.Controllers
             bool isAdmin = User.IsInRole("Admin");
 
 
-            var tomadaPostos = db.TomadaPostos.Include(t => t.PostoTomadaPosto).Include(t => t.TomadaTomadaPosto).Where(tp => tp.PostoTomadaPosto.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
+            var tomadaPostos = db.TomadaPostoes.Include(t => t.PostoTomadaPosto).Include(t => t.TomadaTomadaPosto).Where(tp => tp.PostoTomadaPosto.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
             return View(tomadaPostos.ToList());
         }
 
@@ -59,7 +59,7 @@ namespace e_Recarga.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TomadaPosto tomadaPosto = db.TomadaPostos.Find(id);
+            TomadaPosto tomadaPosto = db.TomadaPostoes.Find(id);
             if (tomadaPosto == null)
             {
                 return HttpNotFound();
@@ -106,7 +106,7 @@ namespace e_Recarga.Controllers
 
             if (ModelState.IsValid)
             {
-                db.TomadaPostos.Add(tomadaPosto);
+                db.TomadaPostoes.Add(tomadaPosto);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -134,7 +134,7 @@ namespace e_Recarga.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TomadaPosto tomadaPosto = db.TomadaPostos.Find(id);
+            TomadaPosto tomadaPosto = db.TomadaPostoes.Find(id);
             if (tomadaPosto == null)
             {
                 return HttpNotFound();
@@ -186,7 +186,7 @@ namespace e_Recarga.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TomadaPosto tomadaPosto = db.TomadaPostos.Find(id);
+            TomadaPosto tomadaPosto = db.TomadaPostoes.Find(id);
             if (tomadaPosto == null)
             {
                 return HttpNotFound();
@@ -205,8 +205,8 @@ namespace e_Recarga.Controllers
             if (!UserCanAcessActionController())
                 return RedirectToAction("Index", "Home");
 
-            TomadaPosto tomadaPosto = db.TomadaPostos.Find(id);
-            db.TomadaPostos.Remove(tomadaPosto);
+            TomadaPosto tomadaPosto = db.TomadaPostoes.Find(id);
+            db.TomadaPostoes.Remove(tomadaPosto);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

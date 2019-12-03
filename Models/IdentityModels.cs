@@ -76,7 +76,7 @@ namespace e_Recarga.Models
         public DbSet<Carregamento> Carregamentoes { get; set; }
         public DbSet<Tomada> Tomadas { get; set; }
         public DbSet<Potencia> Potencias { get; set; }
-        public DbSet<TomadaPosto> TomadaPostos { get; set; }
+        public DbSet<TomadaPosto> TomadaPostoes { get; set; }
         public DbSet<Posto> Postoes { get; set; }
         public DbSet<EstacaoCarregamento> EstacaoCarregamentoes { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }

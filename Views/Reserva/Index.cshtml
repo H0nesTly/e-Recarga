@@ -1,0 +1,63 @@
+﻿@model IEnumerable<e_Recarga.Models.Reserva>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CarregamentoReserva.UtilizadorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomadaPostoReserva.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataReserva)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPrevFimCarregamento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarregamentoReserva.UtilizadorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomadaPostoReserva.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UtilizadorReserva.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataReserva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPrevInicioCarregamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPrevFimCarregamento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

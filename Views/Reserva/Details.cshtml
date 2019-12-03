@@ -1,0 +1,66 @@
+﻿@model e_Recarga.Models.Reserva
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reserva</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CarregamentoReserva.UtilizadorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarregamentoReserva.UtilizadorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TomadaPostoReserva.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TomadaPostoReserva.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UtilizadorReserva.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataReserva)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataReserva)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPrevInicioCarregamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPrevFimCarregamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPrevFimCarregamento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
