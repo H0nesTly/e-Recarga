@@ -3,6 +3,7 @@
     ViewBag.Title = "Dados Pessoais";
 }
 
+
 <h2>@ViewBag.Title.</h2>
 @using (Html.BeginForm("EditDadosPessoais", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -12,7 +13,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly"  })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
         </div>
     </div>
     <div class="form-group">
@@ -72,7 +73,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.NIF, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.NIF,new { @class = "form-control", @readonly = "readonly" })
+            @Html.TextBoxFor(m => m.NIF, new { @class = "form-control", @readonly = "readonly" })
         </div>
     </div>
     <div class="form-group">
@@ -86,7 +87,15 @@
             <input type="submit" class="btn btn-default" value="Editar" />
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalAddVeiculo">Adicionar Veiculo</button>
+        </div>
+    </div>
 }
+
+
+@Html.Partial("~/Views/Veiculos/_AddCarro.cshtml", Model.veiculosViewModel)
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

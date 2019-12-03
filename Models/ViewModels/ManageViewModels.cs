@@ -90,6 +90,8 @@ namespace e_Recarga.Models
         [DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
         [Display(Name = "Data de Nascimento")]
         public System.DateTime? DataNascimento { get; set; }
+
+        public VeiculosViewModel veiculosViewModel { get; set; }
     }
 
     public class FactorViewModel

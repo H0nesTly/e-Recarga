@@ -71,6 +71,8 @@ namespace e_Recarga.Controllers
             editDados.CodigoPostal = user.CodigoPostal;
             editDados.Freguesia = user.Freguesia;
             editDados.Email = user.Email;
+            editDados.veiculosViewModel = new VeiculosViewModel();
+            editDados.veiculosViewModel.CodeDoUser = user.Id;
 
             return View(editDados);
         }
