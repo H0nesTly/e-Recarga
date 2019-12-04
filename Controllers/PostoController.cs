@@ -11,32 +11,15 @@ using Microsoft.AspNet.Identity;
 
 namespace e_Recarga.Controllers
 {
+    [Authorize]
     public class PostoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public bool UserCanAcessActionController()
-        {
-            string utilizadorSessaoID = User.Identity.GetUserId();
-            bool isSAdmin = User.IsInRole("SuperAdmin");
-            bool isAdmin = User.IsInRole("Admin");
-            bool isRP = User.IsInRole("RedeProprietaria");
-
-            if (isAdmin || isSAdmin || isRP)
-                return true;
-
-            return false;
-        }
-
         // GET: Posto
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Index()
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
@@ -47,14 +30,9 @@ namespace e_Recarga.Controllers
         }
 
         // GET: Posto/Details/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Details(int? id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -68,18 +46,13 @@ namespace e_Recarga.Controllers
         }
 
         // GET: Posto/Create
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Create()
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
             bool isRP = User.IsInRole("RedeProprietaria");
-
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
 
             ViewBag.EstacaoCarregamentoID = new SelectList(db.EstacaoCarregamentoes.Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "Designacao");
             ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw");
@@ -91,18 +64,13 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Create([Bind(Include = "ID,CorrenteCarregamento,NumeroTomadas,PotenciaID,EstacaoCarregamentoID")] Posto posto)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
             bool isRP = User.IsInRole("RedeProprietaria");
-
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
@@ -117,18 +85,13 @@ namespace e_Recarga.Controllers
         }
 
         // GET: Posto/Edit/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Edit(int? id)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
             bool isRP = User.IsInRole("RedeProprietaria");
-
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
 
             if (id == null)
             {
@@ -149,18 +112,13 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Edit([Bind(Include = "ID,CorrenteCarregamento,NumeroTomadas,PotenciaID,EstacaoCarregamentoID")] Posto posto)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
             bool isRP = User.IsInRole("RedeProprietaria");
-
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
@@ -174,13 +132,9 @@ namespace e_Recarga.Controllers
         }
 
         // GET: Posto/Delete/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Delete(int? id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
 
             if (id == null)
             {
@@ -197,13 +151,9 @@ namespace e_Recarga.Controllers
         // POST: Posto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
 
             Posto posto = db.Postoes.Find(id);
             db.Postoes.Remove(posto);
