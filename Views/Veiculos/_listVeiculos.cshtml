@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<e_Recarga.Models.VeiculosListViewModel>
 
-@*@if (Model.)
-{*@
+@if (Model.Any())
+{
     <table class="table table-striped">
         <thead>
             <tr>
@@ -34,9 +34,9 @@
 
         }
     </table>
-@*}
+}
 else 
 {
     <p>Nenhum carro </p>
-}*@
+}
 
