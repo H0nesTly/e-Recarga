@@ -92,6 +92,8 @@ namespace e_Recarga.Models
         public System.DateTime? DataNascimento { get; set; }
 
         public VeiculosViewModel veiculosViewModel { get; set; }
+
+        public IEnumerable<VeiculosListViewModel> EnumVeiculosViewModel { get; set; }
     }
 
     public class FactorViewModel

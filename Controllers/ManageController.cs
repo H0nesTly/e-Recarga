@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using e_Recarga.Models;
+using System.Data;
+using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace e_Recarga.Controllers
 {
@@ -15,6 +18,8 @@ namespace e_Recarga.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -32,9 +37,9 @@ namespace e_Recarga.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -74,6 +79,28 @@ namespace e_Recarga.Controllers
             editDados.veiculosViewModel = new VeiculosViewModel();
             editDados.veiculosViewModel.CodeDoUser = user.Id;
 
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+            {
+                editDados.EnumVeiculosViewModel = db.Veiculos
+                    .Select(t => new VeiculosListViewModel
+                    {
+                        Matricula = t.Matricula,
+                        Marca = t.Marca,
+                        Modelo = t.Modelo
+                    });
+            }
+            else
+            {
+                editDados.EnumVeiculosViewModel = db.Veiculos
+                    .Where(i => i.UtilizadorVeiculo.Id == user.Id)
+                    .Select(t => new VeiculosListViewModel
+                    {
+                        Matricula = t.Matricula,
+                        Marca = t.Marca,
+                        Modelo = t.Modelo
+                    });
+            }
+
             return View(editDados);
         }
 
@@ -96,6 +123,9 @@ namespace e_Recarga.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            var userStore = new UserStore<ApplicationUser>(new
+                     ApplicationDbContext());
+
             user.CodigoPostal = editDados.CodigoPostal;
             user.Concelho = editDados.Concelho;
             user.DataNascimento = editDados.DataNascimento;
@@ -106,6 +136,12 @@ namespace e_Recarga.Controllers
             user.Nome = editDados.Nome;
             user.Telefone = editDados.Telefone;
             user.Telemovel = editDados.Telemovel;
+
+            await UserManager.UpdateAsync(user);
+
+            var ctx = userStore.Context;
+
+            ctx.SaveChanges();
 
             return RedirectToAction("Index", "Home");
 
@@ -396,7 +432,7 @@ namespace e_Recarga.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -447,6 +483,6 @@ namespace e_Recarga.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }
