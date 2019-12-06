@@ -150,7 +150,10 @@ namespace e_Recarga.Controllers
         [Authorize(Roles = "SuperAdmin,Admin")]
         public ActionResult IndexTodosClientes()
         {
-            return View(db.ApplicationUsers.GetEnumerator());
+            var allUsers = db.Users;
+               
+
+            return View(allUsers);
         }
 
         //

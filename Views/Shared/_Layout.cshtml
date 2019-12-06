@@ -23,9 +23,16 @@
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
                     {
-                        if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("RedeProprietaria"))
+                        if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
                         {
+                            <li>@Html.ActionLink("Listar utilizadores", "IndexTodosClientes", "Manage")</li>
+                        }
+                        else
+                        {
+                            if (User.IsInRole("RedeProprietaria"))
+                            {
 
+                            }
                         }
                     }
                     <li>@Html.ActionLink("Estação Carregamento", "Index", "EstacaoCarregamento")</li>
