@@ -147,6 +147,12 @@ namespace e_Recarga.Controllers
 
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public ActionResult IndexTodosClientes()
+        {
+            return View(db.ApplicationUsers.GetEnumerator());
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
