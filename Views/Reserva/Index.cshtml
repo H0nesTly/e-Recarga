@@ -15,13 +15,13 @@
             @Html.DisplayNameFor(model => model.CarregamentoReserva.UtilizadorID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TomadaPostoReserva.ID)
+            @Html.DisplayNameFor(model => model.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataReserva)
+            @Html.ActionLink("Data De Reserva", "Index",  new { sortOrder = ViewBag.DataSortParam})
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.CarregamentoReserva.UtilizadorID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TomadaPostoReserva.ID)
+            @Html.DisplayFor(modelItem => item.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UtilizadorReserva.Nome)
