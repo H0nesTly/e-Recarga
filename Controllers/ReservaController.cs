@@ -17,14 +17,20 @@ namespace e_Recarga.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Reserva
-        public ActionResult Index(string sortOrder)
+        public ViewResult Index(string sortOrder, string searchString)
         {
             ViewBag.DataSortParam = sortOrder == "Data" ? "date_desc" : "Data";
+            
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
 
             var reservas = db.Reservas.Include(r => r.CarregamentoReserva).Include(r => r.TomadaPostoReserva).Include(r => r.UtilizadorReserva).Where(r => r.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin || r.TomadaPostoReserva.PostoTomadaPosto.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                reservas = reservas.Where(p => p.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada.Contains(searchString));
+            }
 
             switch (sortOrder)
             {

@@ -9,6 +9,14 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm())
+{
+<p>
+    Find by tipo tomada: @Html.TextBox("SearchString")
+    <input type="submit" value="Search" />
+</p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -21,7 +29,7 @@
             @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
         </th>
         <th>
-            @Html.ActionLink("Data De Reserva", "Index",  new { sortOrder = ViewBag.DataSortParam})
+            @Html.ActionLink("Data De Reserva", "Index", new { sortOrder = ViewBag.DataSortParam })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
@@ -32,32 +40,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CarregamentoReserva.UtilizadorID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UtilizadorReserva.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataReserva)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataPrevInicioCarregamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataPrevFimCarregamento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarregamentoReserva.UtilizadorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UtilizadorReserva.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataReserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPrevInicioCarregamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPrevFimCarregamento)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
