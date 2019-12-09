@@ -1,10 +1,8 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace e_Recarga.Models.ViewModels
+namespace e_Recarga.Models
 {
     public class VeiculosViewModel
     {
@@ -20,6 +18,18 @@ namespace e_Recarga.Models.ViewModels
 
         [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
+        public string Modelo { get; set; }
+    }
+
+    public class VeiculosListViewModel
+    {
+        [Display(Name ="Matricula")]
+        public string Matricula { get; set; }
+
+        [Display(Name = "Marca")]
+        public string Marca { get; set; }
+
+        [Display(Name = "Modelo")]
         public string Modelo { get; set; }
     }
 }

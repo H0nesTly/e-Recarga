@@ -164,9 +164,9 @@ namespace e_Recarga.Models
 
         //[Required]
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Nascimento")]
-        public System.DateTime? DataNascimento { get; set; }
+        public System.DateTime DataNascimento { get; set; }
     }
 
     public class ResetPasswordViewModel

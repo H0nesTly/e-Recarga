@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace e_Recarga.Controllers
 {
+    [Authorize]
     public class ReservaController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -19,9 +20,6 @@ namespace e_Recarga.Controllers
         // GET: Reserva
         public ActionResult Index()
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
@@ -60,9 +58,6 @@ namespace e_Recarga.Controllers
         // GET: Reserva/Details/5
         public ActionResult Details(int? id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -163,6 +158,7 @@ namespace e_Recarga.Controllers
             tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF).Count() == 0).ToList();
 
             reservaViewModel.procurarPostosViewModel.TomadaPostos = tomadaPostos;
+
             
             return View(reservaViewModel);
         }
@@ -200,6 +196,7 @@ namespace e_Recarga.Controllers
         }
 
         // GET: Reserva/Edit/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -222,6 +219,7 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Edit([Bind(Include = "ID,DataReserva,DataPrevInicioCarregamento,DataPrevFimCarregamento,UtilizadorID,CarregamentoID,TomadaPostoID")] Reserva reserva)
         {
             if (ModelState.IsValid)
@@ -237,6 +235,7 @@ namespace e_Recarga.Controllers
         }
 
         // GET: Reserva/Delete/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -254,6 +253,7 @@ namespace e_Recarga.Controllers
         // POST: Reserva/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult DeleteConfirmed(int id)
         {
             Reserva reserva = db.Reservas.Find(id);

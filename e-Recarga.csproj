@@ -182,7 +182,7 @@
     </Compile>
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ModelERecarga.cs" />
     <Compile Include="Models\ViewModels\ReservaViewModel.cs" />
     <Compile Include="Models\ViewModels\VeiculosViewModel.cs" />
@@ -273,6 +273,8 @@
     <Content Include="Views\Reserva\Details.cshtml" />
     <Content Include="Views\Reserva\Edit.cshtml" />
     <Content Include="Views\Reserva\Index.cshtml" />
+    <Content Include="Views\Veiculos\_AddCarro.cshtml" />
+    <Content Include="Views\Veiculos\_listVeiculos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

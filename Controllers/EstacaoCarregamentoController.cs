@@ -11,32 +11,16 @@ using Microsoft.AspNet.Identity;
 
 namespace e_Recarga.Controllers
 {
+    [Authorize]
     public class EstacaoCarregamentoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public bool UserCanAcessActionController()
-        {
-            string utilizadorSessaoID = User.Identity.GetUserId();
-            bool isSAdmin = User.IsInRole("SuperAdmin");
-            bool isAdmin = User.IsInRole("Admin");
-            bool isRP = User.IsInRole("RedeProprietaria");
-
-            if (isAdmin || isSAdmin || isRP)
-                return true;
-
-            return false;
-        } 
 
         // GET: EstacaoCarregamento
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Index()
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
@@ -47,14 +31,9 @@ namespace e_Recarga.Controllers
         }
 
         // GET: EstacaoCarregamento/Details/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Details(int? id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -69,14 +48,9 @@ namespace e_Recarga.Controllers
         }
 
         // GET: EstacaoCarregamento/Create
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Create()
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             ViewBag.ConcelhoID = new SelectList(db.Concelhoes, "ID", "Nome");
             
             return View();
@@ -86,15 +60,10 @@ namespace e_Recarga.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Designacao,Latitude,Longitude,CodigoPostal,Localidade,ConcelhoID")] EstacaoCarregamento estacaoCarregamento)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             if (ModelState.IsValid)
             {
                 estacaoCarregamento.UtilizadorID = User.Identity.GetUserId();
@@ -109,14 +78,9 @@ namespace e_Recarga.Controllers
         }
 
         // GET: EstacaoCarregamento/Edit/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Edit(int? id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -135,15 +99,10 @@ namespace e_Recarga.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Designacao,Latitude,Longitude,CodigoPostal,Localidade,ConcelhoID,UtilizadorID")] EstacaoCarregamento estacaoCarregamento)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             if (ModelState.IsValid)
             {
                 estacaoCarregamento.UtilizadorID = User.Identity.GetUserId();
@@ -156,14 +115,9 @@ namespace e_Recarga.Controllers
         }
 
         // GET: EstacaoCarregamento/Delete/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Delete(int? id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -179,14 +133,9 @@ namespace e_Recarga.Controllers
         // POST: EstacaoCarregamento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("Login", "Account");
-
-            if (!UserCanAcessActionController())
-                return RedirectToAction("Index", "Home");
-
             EstacaoCarregamento estacaoCarregamento = db.EstacaoCarregamentoes.Find(id);
             db.EstacaoCarregamentoes.Remove(estacaoCarregamento);
             db.SaveChanges();

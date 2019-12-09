@@ -1,0 +1,42 @@
+﻿@model IEnumerable<e_Recarga.Models.VeiculosListViewModel>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Matricula)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Modelo)
+                </th>
+
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Matricula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                </td>
+            </tr>
+
+        }
+    </table>
+}
+else 
+{
+    <p>Nenhum carro </p>
+}
+
