@@ -1,146 +1,180 @@
-﻿@model e_Recarga.Models.ViewModels.SearchViewModel
+﻿@model e_Recarga.Models.ViewModels.ReservaViewModel
 
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Search", "Reserva", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Reserva</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataReserva, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataReserva, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataReserva, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataPrevInicioCarregamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPrevInicioCarregamento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataPrevInicioCarregamento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataPrevFimCarregamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPrevFimCarregamento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataPrevFimCarregamento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UtilizadorID, "UtilizadorID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UtilizadorID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UtilizadorID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CarregamentoID, "CarregamentoID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CarregamentoID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CarregamentoID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TomadaPostoID, "TomadaPostoID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TomadaPostoID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TomadaPostoID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Reserva</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.DataInicioCarregamento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.procurarPostosViewModel.DataInicioCarregamento, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.DataInicioCarregamento, "", new { @class = "text-danger" })
         </div>
     </div>
-}
 
-
-
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Reserva</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataReserva, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataReserva, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataReserva, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataPrevInicioCarregamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPrevInicioCarregamento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataPrevInicioCarregamento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataPrevFimCarregamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataPrevFimCarregamento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataPrevFimCarregamento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UtilizadorID, "UtilizadorID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UtilizadorID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UtilizadorID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CarregamentoID, "CarregamentoID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CarregamentoID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CarregamentoID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TomadaPostoID, "TomadaPostoID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("TomadaPostoID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TomadaPostoID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.DataFimCarregamento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.procurarPostosViewModel.DataFimCarregamento, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.DataFimCarregamento, "", new { @class = "text-danger" })
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.DistritoID, "DistritoID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("procurarPostosViewModel.DistritoID", new SelectList(Model.procurarPostosViewModel.Distritos, "ID", "Nome"), "Selecione Distrito", htmlAttributes: new { @class = "form-control" })
+            @*@Html.DropDownListFor(model => model.procurarPostosViewModel.DistritoID, new SelectList(Model.Distritos, "ID", "Nome"), htmlAttributes: new { @class = "form-control" })*@
+
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.DistritoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.ConcelhoID, "ConcelhoID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.DropDownListFor(model => model.procurarPostosViewModel.ConcelhoID, new SelectList(Model.Concelhos.Where(c => c.DistritoID == Model.procurarPostosViewModel.ConcelhoID), "ID", "Nome"), htmlAttributes: new { @class = "form-control" })*@
+            @Html.DropDownList("procurarPostosViewModel.ConcelhoID", new SelectList(Model.procurarPostosViewModel.Concelhos, "ID", "Nome"), "Selecione Concelho", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.ConcelhoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.EstacaoCarregamentoID, "EstacaoCarregamentoID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.DropDownListFor(model => model.procurarPostosViewModel.ConcelhoID, new SelectList(Model.Concelhos.Where(c => c.DistritoID == Model.procurarPostosViewModel.ConcelhoID), "ID", "Nome"), htmlAttributes: new { @class = "form-control" })*@
+            @Html.DropDownList("procurarPostosViewModel.EstacaoCarregamentoID", new SelectList(Model.procurarPostosViewModel.EstacaoCarregamentos, "ID", "Designacao"), "Selecione Estação Carregamento", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.EstacaoCarregamentoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.PotenciaID, "PotenciaID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.DropDownListFor(model => model.procurarPostosViewModel.ConcelhoID, new SelectList(Model.Concelhos.Where(c => c.DistritoID == Model.procurarPostosViewModel.ConcelhoID), "ID", "Nome"), htmlAttributes: new { @class = "form-control" })*@
+            @Html.DropDownList("procurarPostosViewModel.PotenciaID", new SelectList(Model.procurarPostosViewModel.Potencias, "ID", "PotenciaNominalKw"), "Selecione Potência", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.PotenciaID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.procurarPostosViewModel.TomadaID, "TomadaID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.DropDownListFor(model => model.procurarPostosViewModel.ConcelhoID, new SelectList(Model.Concelhos.Where(c => c.DistritoID == Model.procurarPostosViewModel.ConcelhoID), "ID", "Nome"), htmlAttributes: new { @class = "form-control" })*@
+            @Html.DropDownList("procurarPostosViewModel.TomadaID", new SelectList(Model.procurarPostosViewModel.Tomadas, "ID", "TipoTomada"), "Selecione Tipo Tomada", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.procurarPostosViewModel.TomadaID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+@using (Html.BeginForm("Create", "Reserva", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Início Reserva", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.novaReservaViewModel.DataPrevInicioCarregamento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.novaReservaViewModel.DataPrevInicioCarregamento, "", new { @class = "text-danger" })
+        </div>
+        @Html.Label("Fim Reserva", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.novaReservaViewModel.DataPrevFimCarregamento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.novaReservaViewModel.DataPrevFimCarregamento, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <hr />
+    <div class="col-md-10">
+        <h4>Tomadas Disponíveis</h4>
+    </div>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Tomada")
+                </th>
+                <th>
+                    @Html.DisplayName("Tipo Tomada")
+                </th>
+                <th>
+                    @Html.DisplayName("Potência")
+                </th>
+                <th>
+                    @Html.DisplayName("Estação Carregamento")
+                </th>
+                <th>
+                    @Html.DisplayName("Posto")
+                </th>
+                <th>
+                    @Html.DisplayName("Preço ao minuto")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.procurarPostosViewModel.TomadaPostos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TomadaTomadaPosto.TipoTomada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PotenciaTomadaPosto.PotenciaNominalKw)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostoTomadaPosto.EstacaoCarregamentoPosto.Designacao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostoTomadaPosto.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecoMinuto)
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(model => model.novaReservaViewModel.TomadaPostoID, item.ID)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+        @Html.ValidationMessageFor(model => model.novaReservaViewModel.TomadaPostoID, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-11 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

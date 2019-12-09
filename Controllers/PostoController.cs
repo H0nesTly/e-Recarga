@@ -42,7 +42,7 @@ namespace e_Recarga.Controllers
             bool isAdmin = User.IsInRole("Admin");
 
           
-            var postos = db.Postoes.Include(p => p.EstacaoCarregamentoPosto).Include(p => p.PotenciaPosto).Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
+            var postos = db.Postoes.Include(p => p.EstacaoCarregamentoPosto).Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
             return View(postos.ToList());
         }
 
@@ -82,7 +82,6 @@ namespace e_Recarga.Controllers
                 return RedirectToAction("Index", "Home");
 
             ViewBag.EstacaoCarregamentoID = new SelectList(db.EstacaoCarregamentoes.Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "Designacao");
-            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw");
             return View();
         }
 
@@ -91,7 +90,7 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CorrenteCarregamento,NumeroTomadas,PotenciaID,EstacaoCarregamentoID")] Posto posto)
+        public ActionResult Create([Bind(Include = "ID,CorrenteCarregamento,NumeroTomadas,EstacaoCarregamentoID")] Posto posto)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
@@ -112,7 +111,6 @@ namespace e_Recarga.Controllers
             }
 
             ViewBag.EstacaoCarregamentoID = new SelectList(db.EstacaoCarregamentoes.Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "Designacao", posto.EstacaoCarregamentoID);
-            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw", posto.PotenciaID);
             return View(posto);
         }
 
@@ -140,7 +138,6 @@ namespace e_Recarga.Controllers
                 return HttpNotFound();
             }
             ViewBag.EstacaoCarregamentoID = new SelectList(db.EstacaoCarregamentoes.Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "Designacao", posto.EstacaoCarregamentoID);
-            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw", posto.PotenciaID);
             return View(posto);
         }
 
@@ -149,7 +146,7 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CorrenteCarregamento,NumeroTomadas,PotenciaID,EstacaoCarregamentoID")] Posto posto)
+        public ActionResult Edit([Bind(Include = "ID,CorrenteCarregamento,NumeroTomadas,EstacaoCarregamentoID")] Posto posto)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
@@ -169,7 +166,6 @@ namespace e_Recarga.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.EstacaoCarregamentoID = new SelectList(db.EstacaoCarregamentoes.Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "Designacao", posto.EstacaoCarregamentoID);
-            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw", posto.PotenciaID);
             return View(posto);
         }
 

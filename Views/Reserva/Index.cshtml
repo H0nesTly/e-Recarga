@@ -1,4 +1,4 @@
-﻿@model IEnumerable<e_Recarga.Models.Reserva>
+﻿@model IEnumerable<e_Recarga.Models.ViewModels.IndexReservaViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,22 +12,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CarregamentoReserva.UtilizadorID)
+            @Html.DisplayNameFor(model => model.EstacaoCarregamentoID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TomadaPostoReserva.ID)
+            @Html.DisplayNameFor(model => model.PostoID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
+            @Html.DisplayNameFor(model => model.TomadaPostoID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataReserva)
+            @Html.DisplayNameFor(model => model.DataInicioReserva)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
+            @Html.DisplayNameFor(model => model.DataFimReserva)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataPrevFimCarregamento)
+            @Html.DisplayNameFor(model => model.Total)
         </th>
         <th></th>
     </tr>
@@ -35,27 +35,27 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CarregamentoReserva.UtilizadorID)
+            @Html.DisplayFor(modelItem => item.EstacaoCarregamento.Designacao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TomadaPostoReserva.ID)
+            @Html.DisplayFor(modelItem => item.PostoID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UtilizadorReserva.Nome)
+            @Html.DisplayFor(modelItem => item.TomadaPostoID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataReserva)
+            @Html.DisplayFor(modelItem => item.DataInicioReserva)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataPrevInicioCarregamento)
+            @Html.DisplayFor(modelItem => item.DataFimReserva)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataPrevFimCarregamento)
+            @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ReservaID}) |
+            @Html.ActionLink("Details", "Details", new { id = item.ReservaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ReservaID })
         </td>
     </tr>
 }
