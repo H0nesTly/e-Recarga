@@ -110,21 +110,42 @@ namespace e_Recarga.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditDadosPessoais(EditDadosPessoaisViewModel editDados)
         {
-            if (!ModelState.IsValid || DateTime.Compare(
-                editDados.DataNascimento??DateTime.Now, 
-                DateTime.Now) >= 1)
-            {
-                //Modelo não válido
-                return RedirectToAction("Index", "Home");
-                //vai estoirar e a solução é muito lixada
-                //return View(editDados);
-            }
-
             var user = await UserManager.FindByNameAsync(editDados.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid || DateTime.Compare(
+                editDados.DataNascimento??DateTime.Now, 
+                DateTime.Now) >= 1)
+            {
+                editDados.veiculosViewModel = new VeiculosViewModel();
+                editDados.veiculosViewModel.CodeDoUser = user.Id;
+
+                if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                {
+                    editDados.EnumVeiculosViewModel = db.Veiculos
+                        .Select(t => new VeiculosListViewModel
+                        {
+                            Matricula = t.Matricula,
+                            Marca = t.Marca,
+                            Modelo = t.Modelo
+                        });
+                }
+                else
+                {
+                    editDados.EnumVeiculosViewModel = db.Veiculos
+                        .Where(i => i.UtilizadorVeiculo.Id == user.Id)
+                        .Select(t => new VeiculosListViewModel
+                        {
+                            Matricula = t.Matricula,
+                            Marca = t.Marca,
+                            Modelo = t.Modelo
+                        });
+                }
+                return View(editDados);
             }
 
             var userStore = new UserStore<ApplicationUser>(new
