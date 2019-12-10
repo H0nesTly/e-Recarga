@@ -110,10 +110,14 @@ namespace e_Recarga.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditDadosPessoais(EditDadosPessoaisViewModel editDados)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || DateTime.Compare(
+                editDados.DataNascimento??DateTime.Now, 
+                DateTime.Now) >= 1)
             {
                 //Modelo não válido
-                return View(editDados);
+                return RedirectToAction("Index", "Home");
+                //vai estoirar e a solução é muito lixada
+                //return View(editDados);
             }
 
             var user = await UserManager.FindByNameAsync(editDados.Email);

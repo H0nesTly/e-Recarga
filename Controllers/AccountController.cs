@@ -151,7 +151,8 @@ namespace e_Recarga.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid 
+                && DateTime.Compare(model.DataNascimento, DateTime.Now) <= 1) //t1 tem que ser menor que a data de hj
             {
                 var user = new ApplicationUser
                 {
