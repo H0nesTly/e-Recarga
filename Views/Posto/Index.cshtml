@@ -4,48 +4,53 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container top-pad">
+    <h2>@ViewBag.Title.</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EstacaoCarregamentoPosto.Designacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PotenciaPosto.PotenciaNominalKw)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CorrenteCarregamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroTomadas)
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstacaoCarregamentoPosto.Designacao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PotenciaPosto.PotenciaNominalKw)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CorrenteCarregamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroTomadas)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstacaoCarregamentoPosto.Designacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PotenciaPosto.PotenciaNominalKw)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CorrenteCarregamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroTomadas)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstacaoCarregamentoPosto.Designacao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PotenciaPosto.PotenciaNominalKw)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CorrenteCarregamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroTomadas)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+</div>
