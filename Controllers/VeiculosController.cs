@@ -43,6 +43,7 @@ namespace e_Recarga.Controllers
         public ActionResult Create()
         {
             VeiculosViewModel viewModel = new VeiculosViewModel();
+            viewModel.Matricula = "alfredo";
             viewModel.CodeDoUser = User.Identity.GetUserId();
             return View(viewModel);
         }

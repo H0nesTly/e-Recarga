@@ -3,103 +3,117 @@
     ViewBag.Title = "Registo";
 }
 <div class="container top-pad">
-    <h2>@ViewBag.Title.</h2>
-    <div class="form-row">
-        <div class="col">
+    <div class="row justify-content-center">
+        <div class="row">
+            <div class="col">
 
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Crie a sua Conta.</h4>
-                <hr />
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-                <div class="form-group">
-                    @foreach (var value in Model.tipoDeUtilizadores)
-                    {
-                        @Html.RadioButtonFor(m => m.idTipoSelecionado, value.id) @value.TipoNome
-                    }
-                </div>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Crie a sua Conta.</h4>
+                    <hr />
+                    //@Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @foreach (var value in Model.tipoDeUtilizadores)
+                        {
+                            @Html.RadioButtonFor(m => m.idTipoSelecionado, value.id) @value.TipoNome
+                        }
+                    </div>
 
 
-                <div class="form-row">
-                    <div class="col-md-8 mb-3">
-                        @Html.LabelFor(m => m.Email)
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col mb-3">
+                            @Html.LabelFor(m => m.Email)
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-5 mb-3">
-                        @Html.LabelFor(m => m.Password)
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col mb-3">
+                            @Html.LabelFor(m => m.Password)
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col mb-3">
+                            @Html.LabelFor(m => m.ConfirmPassword)
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="col-md-5 mb-3">
-                        @Html.LabelFor(m => m.ConfirmPassword)
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col mb-3">
+                            @Html.LabelFor(m => m.Nome)
+                            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-8 mb-3">
-                        @Html.LabelFor(m => m.Nome)
-                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col mb-3">
+                            @Html.LabelFor(m => m.Pais, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Pais, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col mb-3">
+                            @Html.LabelFor(m => m.Concelho, new { @class = " control-label" })
+                            @Html.TextBoxFor(m => m.Concelho, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Concelho, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Pais, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Pais, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(m => m.Localidade, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Localidade, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Localidade, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            @Html.LabelFor(m => m.Freguesia, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Freguesia, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Freguesia, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(m => m.Morada, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Morada, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Morada, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            @Html.LabelFor(m => m.CodigoPostal, new { @class = " control-label" })
+                            @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Localidade, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Localidade, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(m => m.Telefone, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(m => m.Telemovel, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Telemovel, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Telemovel, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Concelho, new { @class = " control-label" })
-                        @Html.TextBoxFor(m => m.Concelho, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            @Html.LabelFor(m => m.NIF, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.NIF, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NIF, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Freguesia, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Freguesia, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col-md-3 mb-10">
+                            @Html.LabelFor(m => m.DataNascimento, new { @class = "control-label" })
+                            @Html.EditorFor(m => m.DataNascimento, new { @class = "form-control", @type = "date" })
+                            @Html.ValidationMessageFor(m => m.DataNascimento, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Morada, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Morada, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col-md-offset-2 col-md-10 mb-5">
+                            <input type="submit" class="btn btn-outline-primary" value="Register" />
+                        </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        @Html.LabelFor(m => m.CodigoPostal, new { @class = " control-label" })
-
-                        @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Telefone, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control" })
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        @Html.LabelFor(m => m.Telemovel, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.Telemovel, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                        @Html.LabelFor(m => m.NIF, new { @class = "control-label" })
-                        @Html.TextBoxFor(m => m.NIF, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                        @Html.LabelFor(m => m.DataNascimento, new { @class = "control-label" })
-                        @Html.EditorFor(m => m.DataNascimento, new { @class = "form-control", @type = "date" })
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" class="btn btn-outline-primary" value="Register" />
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 </div>
