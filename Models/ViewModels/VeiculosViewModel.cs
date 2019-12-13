@@ -31,5 +31,6 @@ namespace e_Recarga.Models
 
         [Display(Name = "Modelo")]
         public string Modelo { get; set; }
+
     }
 }

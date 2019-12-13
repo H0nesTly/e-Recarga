@@ -25,46 +25,54 @@
                         <div class="col mb-3">
                             @Html.LabelFor(m => m.Nome)
                             @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col mb-3">
                             @Html.LabelFor(m => m.Pais, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Pais, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col mb-3">
                             @Html.LabelFor(m => m.Concelho, new { @class = " control-label" })
                             @Html.TextBoxFor(m => m.Concelho, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Concelho, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             @Html.LabelFor(m => m.Localidade, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Localidade, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Localidade, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-lg-4 mb-3">
                             @Html.LabelFor(m => m.Freguesia, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Freguesia, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Freguesia, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-4 mb-3">
                             @Html.LabelFor(m => m.Morada, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Morada, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Morada, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-3 mb-3">
                             @Html.LabelFor(m => m.CodigoPostal, new { @class = " control-label" })
-
                             @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CodigoPostal, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             @Html.LabelFor(m => m.Telefone, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Telefone, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-4 mb-3">
                             @Html.LabelFor(m => m.Telemovel, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Telemovel, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Telemovel, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row">
@@ -77,6 +85,7 @@
                         <div class="col-md-3 mb-3">
                             @Html.LabelFor(m => m.DataNascimento, new { @class = "control-label" })
                             @Html.EditorFor(m => m.DataNascimento, new { @class = "form-control", @type = "date" })
+                            @Html.ValidationMessageFor(m => m.DataNascimento, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row">
