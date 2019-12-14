@@ -93,11 +93,14 @@
                             <input type="submit" class="btn btn-outline-primary" value="Editar" />
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-md-offset-2 col-md-10 mb-5">
-                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalAddVeiculo">Adicionar Veiculo</button>
+                    if (User.IsInRole("UtilizadorNormal"))
+                    {
+                        <div class="form-row">
+                            <div class="col-md-offset-2 col-md-10 mb-5">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalAddVeiculo">Adicionar Veiculo</button>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>

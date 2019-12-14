@@ -43,10 +43,6 @@ namespace e_Recarga.Models.ViewModels
         [Display(Name = "Tomada")]
         public int? TomadaPostoID { get; set; }
         public virtual TomadaPosto TomadaPostoReserva { get; set; }
-
-       
-
-
     }
 
     public class ProcurarPostosViewModel 
