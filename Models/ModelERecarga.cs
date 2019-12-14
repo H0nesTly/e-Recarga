@@ -51,6 +51,7 @@ namespace e_Recarga.Models
         [DataType(DataType.Currency, ErrorMessage = "Formato campo incorreto.")]
         [Display(Name = "Preço ao Minuto")]
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
+        [Range(0, double.MaxValue, ErrorMessage = "O preço tem de ser possitivo")]
         public double PrecoMinuto { get; set; }
 
         [Display(Name = "Potência")]
@@ -251,6 +252,9 @@ namespace e_Recarga.Models
         [ForeignKey("TomadaPostoReserva")]
         public int? TomadaPostoID { get; set; }
         public virtual TomadaPosto TomadaPostoReserva { get; set; }
+
+        [Display(Name = "Cancelada")]
+        public bool Cancelada { get; set; }
     }
 
     public class Carregamento

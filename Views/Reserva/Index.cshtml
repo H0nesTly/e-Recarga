@@ -30,6 +30,7 @@
             @Html.DisplayNameFor(model => model.Total)
         </th>
         <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -53,9 +54,21 @@
             @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ReservaID}) |
-            @Html.ActionLink("Details", "Details", new { id = item.ReservaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ReservaID })
+            @if (item.Cancelada == true)
+            {
+                @Html.DisplayName("Cancelada")
+            }
+        </td>
+        <td>
+            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("RedeProprietaria"))
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.ReservaID })
+            }
+            @if (item.Cancelada == false)
+            {
+                @Html.ActionLink("Cancelar", "CancelarReserva", new { id = item.ReservaID }, new { onclick = "return confirm('Tem a certeza que pretende cancelar a reserva?');" })
+            }
+
         </td>
     </tr>
 }

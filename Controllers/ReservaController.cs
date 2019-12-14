@@ -42,12 +42,9 @@ namespace e_Recarga.Controllers
                 indexReservaView.DataInicioReserva = r.DataPrevInicioCarregamento;
                 indexReservaView.DataFimReserva = r.DataPrevFimCarregamento;
                 indexReservaView.EstacaoCarregamento = r.TomadaPostoReserva.PostoTomadaPosto.EstacaoCarregamentoPosto;
-
-
-                TimeSpan data = r.DataPrevFimCarregamento.Subtract(r.DataPrevInicioCarregamento);
-                double minutos = data.TotalMinutes;
-
-                indexReservaView.Total = minutos * r.TomadaPostoReserva.PrecoMinuto;
+                indexReservaView.Cancelada = r.Cancelada;
+                indexReservaView.Reserva = r;
+                
 
                 indexReservas.Add(indexReservaView);
             }
@@ -55,37 +52,60 @@ namespace e_Recarga.Controllers
             return View(indexReservas);
         }
 
-        // GET: Reserva/Details/5
+        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reserva reserva = db.Reservas.Find(id);
-            if (reserva == null)
+            Reserva r = db.Reservas.Find(id);
+            
+            if (r == null)
             {
                 return HttpNotFound();
             }
-            return View(reserva);
+
+
+            DetailReservaViewModel detailReservaView = new DetailReservaViewModel();
+            detailReservaView.ReservaID = r.ID;
+            detailReservaView.PostoID = r.TomadaPostoReserva.PostoID;
+            detailReservaView.TomadaPostoID = r.TomadaPostoID;
+            detailReservaView.DataInicioReserva = r.DataPrevInicioCarregamento;
+            detailReservaView.DataFimReserva = r.DataPrevFimCarregamento;
+            detailReservaView.EstacaoCarregamento = r.TomadaPostoReserva.PostoTomadaPosto.EstacaoCarregamentoPosto;
+            detailReservaView.Cancelada = r.Cancelada;
+            detailReservaView.UtilizadorID = r.UtilizadorID;
+            detailReservaView.DataReserva = r.DataReserva;
+            detailReservaView.UtilizadorReserva = r.UtilizadorReserva;
+            detailReservaView.Reserva = r;
+                       
+            return View(detailReservaView);
         }
         
         [HttpPost]
         public ActionResult Search(ReservaViewModel reservaViewModel)
         {
+            List<TomadaPosto> tomadaPostos;
+            DateTime dataI, dataF;
+
+
             if (ModelState.IsValid)
             {   
 
-                List<TomadaPosto> tomadaPostos = db.TomadaPostoes.ToList();
+                tomadaPostos = db.TomadaPostoes.ToList();
 
 
-                DateTime dataI = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento;
-                DateTime dataF = reservaViewModel.procurarPostosViewModel.DataFimCarregamento;
+                dataI = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento;
+                dataF = reservaViewModel.procurarPostosViewModel.DataFimCarregamento;
 
-                tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF).Count() == 0).ToList();
+                //tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF && r.Cancelada == false).Count() == 0).ToList();
 
 
-                tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF).Count() == 0).ToList();
+                //tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF && r.Cancelada == false).Count() == 0).ToList();
+
+
+                tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => ((r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF) || (r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF) || (r.DataPrevInicioCarregamento <= dataI && r.DataPrevFimCarregamento >= dataF)) && (r.Cancelada == false)).Count() == 0).ToList();
 
 
                 if (reservaViewModel.procurarPostosViewModel.DistritoID != null)
@@ -102,28 +122,107 @@ namespace e_Recarga.Controllers
                 
                 if (reservaViewModel.procurarPostosViewModel.TomadaID != null)
                     tomadaPostos = tomadaPostos.Where(tp => tp.TomadaID == reservaViewModel.procurarPostosViewModel.TomadaID).ToList();
-
-
-
+                
                 reservaViewModel.procurarPostosViewModel.TomadaPostos = tomadaPostos;
                 
                 reservaViewModel.procurarPostosViewModel.Distritos = db.Distritos.ToList();
-                reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.ToList();
-                reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.ToList();
+                reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.Where(c => c.DistritoID == reservaViewModel.procurarPostosViewModel.DistritoID).ToList();
                 reservaViewModel.procurarPostosViewModel.Potencias = db.Potencias.ToList();
                 reservaViewModel.procurarPostosViewModel.Tomadas = db.Tomadas.ToList();
+
+                if (reservaViewModel.procurarPostosViewModel.DistritoID != null && reservaViewModel.procurarPostosViewModel.ConcelhoID == null)
+                    reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.Where(e => e.ConcelhoEstacaoCarregamento.DistritoID == reservaViewModel.procurarPostosViewModel.DistritoID).ToList();
+                else if (reservaViewModel.procurarPostosViewModel.ConcelhoID != null)
+                    reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.Where(e => e.ConcelhoID == reservaViewModel.procurarPostosViewModel.ConcelhoID).ToList();
+                else
+                    reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.ToList();
 
                 reservaViewModel.novaReservaViewModel = new NovaReservaViewModel();
                 reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento;
 
                 reservaViewModel.novaReservaViewModel.DataPrevFimCarregamento = reservaViewModel.procurarPostosViewModel.DataFimCarregamento;
 
-
-
+                
                 return View("Create", reservaViewModel);
             }
+
+            reservaViewModel.procurarPostosViewModel.Distritos = db.Distritos.ToList();
+            reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.Where(c => c.DistritoID == reservaViewModel.procurarPostosViewModel.DistritoID).ToList();
+
+            if (reservaViewModel.procurarPostosViewModel.DistritoID > 0 && reservaViewModel.procurarPostosViewModel.ConcelhoID == 0)
+                reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.Where(e => e.ConcelhoEstacaoCarregamento.DistritoID == reservaViewModel.procurarPostosViewModel.DistritoID).ToList();
+            else if (reservaViewModel.procurarPostosViewModel.DistritoID > 0 && reservaViewModel.procurarPostosViewModel.ConcelhoID > 0)
+                reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.Where(e => e.ConcelhoID == reservaViewModel.procurarPostosViewModel.ConcelhoID).ToList();
+            else
+                reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.ToList();
+
+            reservaViewModel.procurarPostosViewModel.Potencias = db.Potencias.ToList();
+            reservaViewModel.procurarPostosViewModel.Tomadas = db.Tomadas.ToList();
+            
+            reservaViewModel.novaReservaViewModel = new NovaReservaViewModel();
+            reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento = DateTime.Now.AddMinutes(5);
+            reservaViewModel.novaReservaViewModel.DataPrevFimCarregamento = reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento.AddHours(8);
+            
+            dataI = reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento;
+            dataF = reservaViewModel.novaReservaViewModel.DataPrevFimCarregamento;
+
+            tomadaPostos = db.TomadaPostoes.ToList();
+
+            tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF && r.Cancelada == false).Count() == 0).ToList();
+            
+            tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF && r.Cancelada == false).Count() == 0).ToList();
+
+            reservaViewModel.procurarPostosViewModel.TomadaPostos = tomadaPostos;
+
             return View("Create", reservaViewModel);
         }
+       
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult LoadEstacoesCarregamento(int? idDistrito = null, int? idConcelho = null)
+        {
+            List<EstacaoCarregamento> estacoesCarregamento = null;
+            if (idDistrito != null && idConcelho == null)
+                estacoesCarregamento = db.EstacaoCarregamentoes.Where(e => e.ConcelhoEstacaoCarregamento.DistritoID == idDistrito).ToList();
+            else if (idConcelho != null)
+                estacoesCarregamento = db.EstacaoCarregamentoes.Where(e => e.ConcelhoID == idConcelho).ToList();
+            else
+                estacoesCarregamento = db.EstacaoCarregamentoes.ToList();
+
+            
+            List<SelectListItem> EstacoesCarregamentoList = new List<SelectListItem>();
+            EstacoesCarregamentoList.Clear();
+            //   ProjectsubTypes.Add(new SelectListItem { Text = "--Select Project sub-Type--", Value = "0" });
+            if (estacoesCarregamento != null)
+            {
+                foreach (var estacaoCarregamento in estacoesCarregamento)
+                {
+                    EstacoesCarregamentoList.Add(new SelectListItem { Text = estacaoCarregamento.Designacao, Value = estacaoCarregamento.ID.ToString() });
+                }
+            }
+            return Json(EstacoesCarregamentoList, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public JsonResult LoadConcelhos(int idDistrito)
+        {
+            List<Concelho> concelhos = null;
+           
+                concelhos = db.Concelhoes.Where(c => c.DistritoID == idDistrito).ToList();
+
+
+            List<SelectListItem> ConcelhosList = new List<SelectListItem>();
+            ConcelhosList.Clear();
+            //   ProjectsubTypes.Add(new SelectListItem { Text = "--Select Project sub-Type--", Value = "0" });
+            if (concelhos != null)
+            {
+                foreach (var concelho in concelhos)
+                {
+                    ConcelhosList.Add(new SelectListItem { Text = concelho.Nome, Value = concelho.ID.ToString() });
+                }
+            }
+            return Json(ConcelhosList, JsonRequestBehavior.AllowGet);
+        }
+
 
         // GET: Reserva/Create
         public ActionResult Create()
@@ -134,14 +233,14 @@ namespace e_Recarga.Controllers
             ReservaViewModel reservaViewModel = new ReservaViewModel();
             reservaViewModel.procurarPostosViewModel = new ProcurarPostosViewModel();
             reservaViewModel.novaReservaViewModel = new NovaReservaViewModel();
-
+            
             reservaViewModel.procurarPostosViewModel.Distritos = db.Distritos.ToList();
-            reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.ToList();
+            reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.Where(c => c.DistritoID == reservaViewModel.procurarPostosViewModel.DistritoID).ToList();
             reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.ToList();
             reservaViewModel.procurarPostosViewModel.Potencias = db.Potencias.ToList();
             reservaViewModel.procurarPostosViewModel.Tomadas = db.Tomadas.ToList();
 
-            reservaViewModel.procurarPostosViewModel.DataInicioCarregamento = DateTime.Now;
+            reservaViewModel.procurarPostosViewModel.DataInicioCarregamento = DateTime.Now.AddMinutes(5);
             reservaViewModel.procurarPostosViewModel.DataFimCarregamento = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento.AddHours(8);
 
             reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento;
@@ -152,13 +251,11 @@ namespace e_Recarga.Controllers
             DateTime dataI = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento;
             DateTime dataF = reservaViewModel.procurarPostosViewModel.DataFimCarregamento;
 
-            tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF).Count() == 0).ToList();
-            
-           
-            tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF).Count() == 0).ToList();
+
+            tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => ((r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF) || (r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF) || (r.DataPrevInicioCarregamento <= dataI && r.DataPrevFimCarregamento >= dataF)) && (r.Cancelada == false)).Count() == 0).ToList();
+
 
             reservaViewModel.procurarPostosViewModel.TomadaPostos = tomadaPostos;
-
             
             return View(reservaViewModel);
         }
@@ -180,84 +277,66 @@ namespace e_Recarga.Controllers
                 reserva.UtilizadorID = User.Identity.GetUserId();
                 reserva.TomadaPostoID = reservaViewModel.novaReservaViewModel.TomadaPostoID;
                 reserva.CarregamentoID = null;
-
+                reserva.Cancelada = false;
 
                 
                 db.Reservas.Add(reserva);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            
+            reservaViewModel.procurarPostosViewModel = new ProcurarPostosViewModel();
+            reservaViewModel.procurarPostosViewModel.DataInicioCarregamento = reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento;
+            reservaViewModel.procurarPostosViewModel.DataFimCarregamento = reservaViewModel.novaReservaViewModel.DataPrevFimCarregamento;
+            reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.ToList();
+            reservaViewModel.procurarPostosViewModel.Distritos = db.Distritos.ToList();
+            reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.ToList();
+            reservaViewModel.procurarPostosViewModel.Potencias = db.Potencias.ToList();
+            reservaViewModel.procurarPostosViewModel.Tomadas = db.Tomadas.ToList();
 
-           //ViewBag.DistritoID = new SelectList(db.Distritos, "ID", "Nome", reserva.);
-            //ViewBag.CarregamentoID = new SelectList(db.Carregamentoes, "ID", "UtilizadorID", reserva.CarregamentoID);
-            //ViewBag.TomadaPostoID = new SelectList(db.TomadaPostoes, "ID", "ID", reserva.TomadaPostoID);
-            //ViewBag.UtilizadorID = new SelectList(db.ApplicationUsers, "Id", "Nome", reserva.UtilizadorID);
-            return View(reserva);
+
+;
+            reservaViewModel.procurarPostosViewModel = new ProcurarPostosViewModel();
+
+            reservaViewModel.procurarPostosViewModel.Distritos = db.Distritos.ToList();
+            reservaViewModel.procurarPostosViewModel.Concelhos = db.Concelhoes.Where(c => c.DistritoID == reservaViewModel.procurarPostosViewModel.DistritoID).ToList();
+            reservaViewModel.procurarPostosViewModel.EstacaoCarregamentos = db.EstacaoCarregamentoes.ToList();
+            reservaViewModel.procurarPostosViewModel.Potencias = db.Potencias.ToList();
+            reservaViewModel.procurarPostosViewModel.Tomadas = db.Tomadas.ToList();
+
+            reservaViewModel.procurarPostosViewModel.DataInicioCarregamento = reservaViewModel.novaReservaViewModel.DataPrevInicioCarregamento;
+            reservaViewModel.procurarPostosViewModel.DataFimCarregamento = reservaViewModel.novaReservaViewModel.DataPrevFimCarregamento;
+            
+
+            List<TomadaPosto> tomadaPostos = db.TomadaPostoes.ToList();
+
+            DateTime dataI = reservaViewModel.procurarPostosViewModel.DataInicioCarregamento;
+            DateTime dataF = reservaViewModel.procurarPostosViewModel.DataFimCarregamento;
+
+
+            tomadaPostos = tomadaPostos.Where(tp => tp.Reservas.Where(r => ((r.DataPrevInicioCarregamento >= dataI && r.DataPrevInicioCarregamento <= dataF) || (r.DataPrevFimCarregamento >= dataI && r.DataPrevFimCarregamento <= dataF) || (r.DataPrevInicioCarregamento <= dataI && r.DataPrevFimCarregamento >= dataF)) && (r.Cancelada == false)).Count() == 0).ToList();
+
+
+            reservaViewModel.procurarPostosViewModel.TomadaPostos = tomadaPostos;
+
+
+
+
+            return View(reservaViewModel);
         }
 
-        // GET: Reserva/Edit/5
+        
+
+        
         [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
-        public ActionResult Edit(int? id)
+        public ActionResult CancelarReserva(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Reserva reserva = db.Reservas.Find(id);
             if (reserva == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.CarregamentoID = new SelectList(db.Carregamentoes, "ID", "UtilizadorID", reserva.CarregamentoID);
-            ViewBag.TomadaPostoID = new SelectList(db.TomadaPostoes, "ID", "ID", reserva.TomadaPostoID);
-            ViewBag.UtilizadorID = new SelectList(db.ApplicationUsers, "Id", "Nome", reserva.UtilizadorID);
-            return View(reserva);
-        }
+            
+            reserva.Cancelada = true;
 
-        // POST: Reserva/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
-        public ActionResult Edit([Bind(Include = "ID,DataReserva,DataPrevInicioCarregamento,DataPrevFimCarregamento,UtilizadorID,CarregamentoID,TomadaPostoID")] Reserva reserva)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(reserva).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CarregamentoID = new SelectList(db.Carregamentoes, "ID", "UtilizadorID", reserva.CarregamentoID);
-            ViewBag.TomadaPostoID = new SelectList(db.TomadaPostoes, "ID", "ID", reserva.TomadaPostoID);
-            ViewBag.UtilizadorID = new SelectList(db.ApplicationUsers, "Id", "Nome", reserva.UtilizadorID);
-            return View(reserva);
-        }
-
-        // GET: Reserva/Delete/5
-        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Reserva reserva = db.Reservas.Find(id);
-            if (reserva == null)
-            {
-                return HttpNotFound();
-            }
-            return View(reserva);
-        }
-
-        // POST: Reserva/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Reserva reserva = db.Reservas.Find(id);
-            db.Reservas.Remove(reserva);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
