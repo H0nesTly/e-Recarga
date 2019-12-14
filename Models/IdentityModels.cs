@@ -60,7 +60,7 @@ namespace e_Recarga.Models
         {
             Database.SetInitializer(new ApplicationDbInitializer());
             //Other template initializers
-            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()

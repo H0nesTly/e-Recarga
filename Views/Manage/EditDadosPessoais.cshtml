@@ -103,8 +103,12 @@
         </div>
     </div>
 
-    @Html.Partial("~/Views/Veiculos/_AddCarro.cshtml", Model.veiculosViewModel)
-    @Html.Partial("~/Views/Veiculos/_listVeiculos.cshtml", Model.EnumVeiculosViewModel)
+    @if (User.IsInRole("UtilizadorNormal"))
+    {
+        @Html.Partial("~/Views/Veiculos/_AddCarro.cshtml", Model.veiculosViewModel)
+        @Html.Partial("~/Views/Veiculos/_listVeiculos.cshtml", Model.EnumVeiculosViewModel)
+    }
+
 </div>
 
 @section Scripts {
