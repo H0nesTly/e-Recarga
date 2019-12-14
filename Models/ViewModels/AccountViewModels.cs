@@ -72,7 +72,7 @@ namespace e_Recarga.Models
     {
         [Required(ErrorMessage = "Selecione o tipo de cliente")]
         [Display(Name = "Tipo de Cliente")]
-        public int idTipoSelecionado { get; set; } = 1;
+        public int idTipoSelecionado { get; set; } = 2;
         public List<TipoDeUtilizador> tipoDeUtilizadores
         {
             get

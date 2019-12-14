@@ -29,6 +29,9 @@
                                 <li class="nav-item">
                                     @Html.ActionLink("Listar utilizadores", "IndexTodosClientes", "Manage", null, new { @class = "nav-link " })
                                 </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })
+                                </li>
                             }
                             else
                             {
@@ -45,9 +48,6 @@
                             </li>
                             <li class="nav-item">
                                 @Html.ActionLink("Reserva", "Index", "Reserva", null, new { @class = "nav-link " })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Tomada Posto", "Index", "TomadaPosto", null, new { @class = "nav-link " })
                             </li>
 
                         }
