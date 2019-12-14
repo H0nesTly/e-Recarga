@@ -1,4 +1,4 @@
-﻿@model IEnumerable<e_Recarga.Models.Reserva>
+﻿@model IEnumerable<e_Recarga.Models.ViewModels.IndexReservaViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -7,74 +7,74 @@
 <div class="container top-pad">
     <h2>@ViewBag.Title.</h2>
 
-    <div class="row col">
+<div class="row col">
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EstacaoCarregamentoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomadaPostoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInicioReserva)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFimReserva)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-    </div>
-    <div class="row col">
-        @using (Html.BeginForm())
-        {
-            <p>
-                Find by tipo tomada: @Html.TextBox("SearchString")
-                <input type="submit" value="Search" />
-            </p>
-        }
-    </div>
-    <div class="row col">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CarregamentoReserva.UtilizadorID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
-                </th>
-                <th>
-                    @Html.ActionLink("Data De Reserva", "Index", new { sortOrder = ViewBag.DataSortParam })
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataPrevFimCarregamento)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstacaoCarregamento.Designacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomadaPostoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInicioReserva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataFimReserva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @if (item.Cancelada == true)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CarregamentoReserva.UtilizadorID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TomadaPostoReserva.TomadaTomadaPosto.TipoTomada)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilizadorReserva.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataReserva)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataPrevInicioCarregamento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataPrevFimCarregamento)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+                @Html.DisplayName("Cancelada")
+            }
+        </td>
+        <td>
+            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("RedeProprietaria"))
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.ReservaID })
+            }
+            @if (item.Cancelada == false)
+            {
+                @Html.ActionLink("Cancelar", "CancelarReserva", new { id = item.ReservaID }, new { onclick = "return confirm('Tem a certeza que pretende cancelar a reserva?');" })
             }
 
-        </table>
-    </div>
+        </td>
+    </tr>
+}
+
+    </table>
+</div>
 </div>

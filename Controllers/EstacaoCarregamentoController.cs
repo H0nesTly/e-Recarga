@@ -25,7 +25,7 @@ namespace e_Recarga.Controllers
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
 
-            var estacaoCarregamentoes = db.EstacaoCarregamentoes.Include(e => e.ConcelhoLocalizacao).Include(e => e.UtilizadorEstacao).Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
+            var estacaoCarregamentoes = db.EstacaoCarregamentoes.Include(e => e.ConcelhoEstacaoCarregamento).Include(e => e.UtilizadorEstacao).Where(ec => ec.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
             return View(estacaoCarregamentoes.ToList());
             
         }

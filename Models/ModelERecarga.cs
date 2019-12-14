@@ -12,7 +12,6 @@ namespace e_Recarga.Models
     {
         public Posto()
         {
-            Reservas = new HashSet<Reserva>();
             TomadaPostos = new HashSet<TomadaPosto>();
         }
 
@@ -24,18 +23,7 @@ namespace e_Recarga.Models
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         [RegularExpression(@"^-?\d+(\.\d+)?$", ErrorMessage = "Formato do campo incorreto.")]
         public string CorrenteCarregamento { get; set; }
-
-        [Display(Name = "Número de Tomadas")]
-        [StringLength(3, ErrorMessage = "Tamanho do campo excedido.")]
-        [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Formato campo incorreto.")]
-        public string NumeroTomadas { get; set; }
-        
-        [Display(Name = "Potência")]
-        [ForeignKey("PotenciaPosto")]
-        public int PotenciaID { get; set; }
-        public virtual Potencia PotenciaPosto { get; set; }
-
+                
         [Display(Name = "Estação de Carregamento")]
         [ForeignKey("EstacaoCarregamentoPosto")]
         public int EstacaoCarregamentoID { get; set; }
@@ -43,7 +31,6 @@ namespace e_Recarga.Models
 
         public virtual ICollection<TomadaPosto> TomadaPostos { get; set; }
 
-        public virtual ICollection<Reserva> Reservas { get; set; }
     }
 
     public class TomadaPosto
@@ -64,7 +51,15 @@ namespace e_Recarga.Models
         [DataType(DataType.Currency, ErrorMessage = "Formato campo incorreto.")]
         [Display(Name = "Preço ao Minuto")]
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
+        [Range(0, double.MaxValue, ErrorMessage = "O preço tem de ser possitivo")]
         public double PrecoMinuto { get; set; }
+
+        [Display(Name = "Potência")]
+        [ForeignKey("PotenciaTomadaPosto")]
+        public int PotenciaID { get; set; }
+        public virtual Potencia PotenciaTomadaPosto { get; set; }
+
+        public virtual ICollection<Reserva> Reservas { get; set; }
 
     }
 
@@ -91,7 +86,7 @@ namespace e_Recarga.Models
     {
         public Potencia()
         {
-            Postos = new HashSet<Posto>();
+            TomadaPostos = new HashSet<TomadaPosto>();
         }
 
         [Key]
@@ -108,7 +103,7 @@ namespace e_Recarga.Models
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string TipoPotencia { get; set; }
 
-        public virtual ICollection<Posto> Postos { get; set; }
+        public virtual ICollection<TomadaPosto> TomadaPostos { get; set; }
     }
 
     public class EstacaoCarregamento
@@ -149,13 +144,12 @@ namespace e_Recarga.Models
         public string Localidade { get; set; }
 
         
-        
-        [ForeignKey("ConcelhoLocalizacao")]
+        [ForeignKey("ConcelhoEstacaoCarregamento")]
         [Display(Name = "Concelho")]
         public int ConcelhoID { get; set; }
-        public virtual Concelho ConcelhoLocalizacao { get; set; }
+        public virtual Concelho ConcelhoEstacaoCarregamento { get; set; }
 
-        
+       
         [ForeignKey("UtilizadorEstacao")]
         [Display(Name = "Rede Proprietária")]
         public string UtilizadorID { get; set; }
@@ -258,6 +252,9 @@ namespace e_Recarga.Models
         [ForeignKey("TomadaPostoReserva")]
         public int? TomadaPostoID { get; set; }
         public virtual TomadaPosto TomadaPostoReserva { get; set; }
+
+        [Display(Name = "Cancelada")]
+        public bool Cancelada { get; set; }
     }
 
     public class Carregamento

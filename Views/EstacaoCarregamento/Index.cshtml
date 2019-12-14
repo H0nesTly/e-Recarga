@@ -7,6 +7,7 @@
 <div class="container top-pad">
     <h2>@ViewBag.Title.</h2>
 
+
     <div class="row">
         <p>
             @Html.ActionLink("Create New", "Create")
@@ -29,7 +30,7 @@
                     @Html.DisplayNameFor(model => model.Localidade)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ConcelhoLocalizacao.Nome)
+                    @Html.DisplayNameFor(model => model.ConcelhoEstacaoCarregamento.Nome)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.UtilizadorEstacao.Nome)
@@ -37,38 +38,36 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Designacao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Latitude)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Longitude)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodigoPostal)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Localidade)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ConcelhoLocalizacao.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilizadorEstacao.Nome)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
-            }
-
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Designacao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Latitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Longitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoPostal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConcelhoEstacaoCarregamento.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UtilizadorEstacao.Nome)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
         </table>
     </div>
 </div>

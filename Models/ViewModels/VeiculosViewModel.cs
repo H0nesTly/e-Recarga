@@ -1,5 +1,4 @@
 ﻿
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace e_Recarga.Models
@@ -15,7 +14,7 @@ namespace e_Recarga.Models
         [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string Marca { get; set; }
-
+        
         [StringLength(150, ErrorMessage = "Tamanho do campo excedido.")]
         [Required(ErrorMessage = "Campo de preenchimento obrigatório.")]
         public string Modelo { get; set; }

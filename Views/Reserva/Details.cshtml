@@ -1,4 +1,4 @@
-﻿@model e_Recarga.Models.Reserva
+﻿@model e_Recarga.Models.ViewModels.DetailReservaViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,27 +11,59 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CarregamentoReserva.UtilizadorID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CarregamentoReserva.UtilizadorID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TomadaPostoReserva.ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TomadaPostoReserva.ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UtilizadorReserva.Nome)
+            @Html.DisplayNameFor(model => model.UtilizadorID)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.UtilizadorReserva.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstacaoCarregamentoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstacaoCarregamento.Designacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostoID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TomadaPostoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TomadaPostoID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicioReserva)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicioReserva)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFimReserva)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFimReserva)
         </dd>
 
         <dt>
@@ -43,24 +75,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DataPrevInicioCarregamento)
+            @Html.DisplayNameFor(model => model.Cancelada)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DataPrevInicioCarregamento)
+            @Html.DisplayFor(model => model.Cancelada)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataPrevFimCarregamento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataPrevFimCarregamento)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Index")
 </p>

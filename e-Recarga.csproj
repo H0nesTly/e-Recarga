@@ -182,6 +182,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912061102167_InitialCreate.cs" />
+    <Compile Include="Migrations\201912061102167_InitialCreate.Designer.cs">
+      <DependentUpon>201912061102167_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912131722205_InitalCreate.cs" />
+    <Compile Include="Migrations\201912131722205_InitalCreate.Designer.cs">
+      <DependentUpon>201912131722205_InitalCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912131749249_InitalCreate1.cs" />
+    <Compile Include="Migrations\201912131749249_InitalCreate1.Designer.cs">
+      <DependentUpon>201912131749249_InitalCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CustomDataAnnotations\CurrentDateAttribute.cs" />
+    <Compile Include="Models\CustomDataAnnotations\DateLessThanOtherDateAttribute.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
@@ -205,6 +220,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -300,6 +316,33 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+
+    <!--<None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.globalize.js" />
+    <Content Include="Scripts\jquery.validate.globalize.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />-->
+
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -389,7 +432,19 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+
+    <!---<EmbeddedResource Include="Migrations\201912061102167_InitialCreate.resx">
+      <DependentUpon>201912061102167_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912131722205_InitalCreate.resx">
+      <DependentUpon>201912131722205_InitalCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912131749249_InitalCreate1.resx">
+      <DependentUpon>201912131749249_InitalCreate1.cs</DependentUpon>
+    </EmbeddedResource>-->
+
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

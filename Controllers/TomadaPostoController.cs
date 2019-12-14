@@ -25,7 +25,7 @@ namespace e_Recarga.Controllers
             bool isAdmin = User.IsInRole("Admin");
 
 
-            var tomadaPostos = db.TomadaPostoes.Include(t => t.PostoTomadaPosto).Include(t => t.TomadaTomadaPosto).Where(tp => tp.PostoTomadaPosto.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
+            var tomadaPostos = db.TomadaPostoes.Include(t => t.PostoTomadaPosto).Include(t => t.TomadaTomadaPosto).Include(t => t.PotenciaTomadaPosto).Where(tp => tp.PostoTomadaPosto.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
             return View(tomadaPostos.ToList());
         }
 
@@ -57,6 +57,8 @@ namespace e_Recarga.Controllers
 
             ViewBag.PostoID = new SelectList(db.Postoes.Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "ID");
             ViewBag.TomadaID = new SelectList(db.Tomadas, "ID", "TipoTomada");
+            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw");
+
             return View();
         }
 
@@ -66,7 +68,7 @@ namespace e_Recarga.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
-        public ActionResult Create([Bind(Include = "ID,TomadaID,PostoID,PrecoMinuto")] TomadaPosto tomadaPosto)
+        public ActionResult Create([Bind(Include = "ID,TomadaID,PostoID,PrecoMinuto,PotenciaID")] TomadaPosto tomadaPosto)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
@@ -82,6 +84,8 @@ namespace e_Recarga.Controllers
 
             ViewBag.PostoID = new SelectList(db.Postoes.Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "ID", tomadaPosto.PostoID);
             ViewBag.TomadaID = new SelectList(db.Tomadas, "ID", "TipoTomada", tomadaPosto.TomadaID);
+            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw", tomadaPosto.PotenciaID);
+
             return View(tomadaPosto);
         }
 
@@ -105,6 +109,8 @@ namespace e_Recarga.Controllers
             }
             ViewBag.PostoID = new SelectList(db.Postoes.Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "ID", tomadaPosto.PostoID);
             ViewBag.TomadaID = new SelectList(db.Tomadas, "ID", "TipoTomada", tomadaPosto.TomadaID);
+            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw", tomadaPosto.PotenciaID);
+
             return View(tomadaPosto);
         }
 
@@ -114,7 +120,7 @@ namespace e_Recarga.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
-        public ActionResult Edit([Bind(Include = "ID,TomadaID,PostoID,PrecoMinuto")] TomadaPosto tomadaPosto)
+        public ActionResult Edit([Bind(Include = "ID,TomadaID,PostoID,PrecoMinuto,PotenciaID")] TomadaPosto tomadaPosto)
         {
             string utilizadorSessaoID = User.Identity.GetUserId();
             bool isSAdmin = User.IsInRole("SuperAdmin");
@@ -129,6 +135,8 @@ namespace e_Recarga.Controllers
             }
             ViewBag.PostoID = new SelectList(db.Postoes.Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin), "ID", "ID", tomadaPosto.PostoID);
             ViewBag.TomadaID = new SelectList(db.Tomadas, "ID", "TipoTomada", tomadaPosto.TomadaID);
+            ViewBag.PotenciaID = new SelectList(db.Potencias, "ID", "PotenciaNominalKw", tomadaPosto.PotenciaID);
+
             return View(tomadaPosto);
         }
 
