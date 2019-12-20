@@ -1,43 +1,53 @@
-﻿@model e_Recarga.Models.Posto
+﻿@model e_Recarga.Models.ViewModels.DetalhesPostoViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
+<div class="container top-pad">
     <h4>Posto</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EstacaoCarregamentoPosto.Designacao)
-        </dt>
+    <div class="col">
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.EstacaoCarregamentoPosto.Designacao)
-        </dd>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.estacaoDeCarregamento)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.estacaoDeCarregamento)
+                </dd>
 
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CorrenteCarregamento)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.correnteCarregamento)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CorrenteCarregamento)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.correnteCarregamento)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroTomadas)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.numeroDeTomadas)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumeroTomadas)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.numeroDeTomadas)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+        <div class="row">
+            <div class="form-row">
+                <div class="col-md-offset-2 col-md-10 mb-5">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalAddTomadaPosto">Tomada Posto</button>
+                </div>
+            </div>
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@Html.Partial("~/Views/TomadaPosto/_AddTomadaPosto.cshtml", Model.tomadaPostoViewModel)

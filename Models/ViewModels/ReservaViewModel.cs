@@ -13,17 +13,6 @@ namespace e_Recarga.Models.ViewModels
 
         public NovaReservaViewModel novaReservaViewModel { get; set; }
         public ProcurarPostosViewModel procurarPostosViewModel { get; set; }
-        
-
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    var results = new List<ValidationResult>();
-
-        //    if (procurarPostosViewModel.DataFimCarregamento <= procurarPostosViewModel.DataInicioCarregamento)
-        //        results.Add(new ValidationResult("A data de fim da reserva tem de ser posterior à de início."));
-
-        //    return results;
-        //}
     }
 
 
@@ -88,9 +77,7 @@ namespace e_Recarga.Models.ViewModels
         public virtual ICollection<Distrito> Distritos { get; set; }
         public virtual ICollection<EstacaoCarregamento> EstacaoCarregamentos { get; set; }
         public virtual ICollection<Potencia> Potencias { get; set; }
-        public virtual ICollection<Tomada> Tomadas { get; set; }
-
-  
+        public virtual ICollection<Tomada> Tomadas { get; set; }  
     }
 
 
@@ -195,12 +182,5 @@ namespace e_Recarga.Models.ViewModels
 
         [Display(Name = "Cancelada")]
         public bool Cancelada { get; set; }
-
-
-
     }
-
-
-
-
 }
