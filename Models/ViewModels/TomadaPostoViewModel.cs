@@ -8,10 +8,13 @@ namespace e_Recarga.Models.ViewModels
 {
     public class DetalhesPostoViewModel
     {
+        [Display(Name = "Corrente ")]
         public string correnteCarregamento { get; set; }
 
+        [Display(Name = "Proprietário do posto")]
         public string estacaoDeCarregamento { get; set; }
 
+        [Display(Name = "Numero de tomadas deste posto")]
         public int numeroDeTomadas { get; set; }
 
         public TomadaPostoViewModel tomadaPostoViewModel { get; set; }

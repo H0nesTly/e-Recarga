@@ -11,15 +11,6 @@
 
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.estacaoDeCarregamento)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.estacaoDeCarregamento)
-                </dd>
-
-
-                <dt>
                     @Html.DisplayNameFor(model => model.correnteCarregamento)
                 </dt>
 
@@ -28,11 +19,33 @@
                 </dd>
 
                 <dt>
+                    @Html.DisplayNameFor(model => model.estacaoDeCarregamento)
+                </dt>
+
+                <dd>
+                    @if (String.IsNullOrEmpty(Model.estacaoDeCarregamento))
+                    {
+                        @Html.Label("Utilizador sem nome")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.estacaoDeCarregamento)
+                    }
+                </dd>
+
+                <dt>
                     @Html.DisplayNameFor(model => model.numeroDeTomadas)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.numeroDeTomadas)
+                    @if (Model.numeroDeTomadas == 0)
+                    {
+                        @Html.Label("Sem nenhuma tomada!!")
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.numeroDeTomadas)
+                    }
                 </dd>
 
             </dl>
