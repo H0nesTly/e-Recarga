@@ -141,7 +141,9 @@ namespace e_Recarga.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View(new RegisterViewModel());
+            RegisterViewModel registerView = new RegisterViewModel();
+            registerView.DataNascimento = DateTime.Now;
+            return View(registerView);
         }
 
         //
@@ -151,8 +153,7 @@ namespace e_Recarga.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid 
-                && DateTime.Compare(model.DataNascimento, DateTime.Now) <= 1) //t1 tem que ser menor que a data de hj
+            if (ModelState.IsValid) //t1 tem que ser menor que a data de hj
             {
                 var user = new ApplicationUser
                 {
@@ -163,8 +164,7 @@ namespace e_Recarga.Controllers
                     CodigoPostal = model.CodigoPostal,
                     Freguesia = model.Freguesia,
                     Concelho = model.Concelho,
-                    //DataNascimento = model.DataNascimento,
-                    DataNascimento = DateTime.Now,
+                    DataNascimento = model.DataNascimento,
                     Localidade = model.Localidade,
                     Morada = model.Morada,
                     Pais = model.Pais,

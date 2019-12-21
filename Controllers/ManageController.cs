@@ -117,9 +117,7 @@ namespace e_Recarga.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if (!ModelState.IsValid || DateTime.Compare(
-                editDados.DataNascimento??DateTime.Now, 
-                DateTime.Now) >= 1)
+            if (!ModelState.IsValid)
             {
                 editDados.veiculosViewModel = new VeiculosViewModel();
                 editDados.veiculosViewModel.CodeDoUser = user.Id;
