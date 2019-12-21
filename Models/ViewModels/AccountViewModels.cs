@@ -72,7 +72,7 @@ namespace e_Recarga.Models
     {
         [Required(ErrorMessage = "Selecione o tipo de cliente")]
         [Display(Name = "Tipo de Cliente")]
-        public int idTipoSelecionado { get; set; } = 1;
+        public int idTipoSelecionado { get; set; } = 2;
         public List<TipoDeUtilizador> tipoDeUtilizadores
         {
             get
@@ -162,8 +162,9 @@ namespace e_Recarga.Models
         [Display(Name = "NIF")]
         public string NIF { get; set; }
 
-        //[Required]
+        [Required]
         [DataType(DataType.Date)]
+        [CustomDataAnnotations.DataDeNascimento(ErrorMessage = "Tem que ser maior que 18 anos")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Nascimento")]
         public System.DateTime DataNascimento { get; set; }

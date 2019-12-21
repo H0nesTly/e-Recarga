@@ -87,6 +87,7 @@ namespace e_Recarga.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [CustomDataAnnotations.DataDeNascimento(ErrorMessage ="Tem que ser maior que 18 anos.")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Nascimento")]
         public System.DateTime? DataNascimento { get; set; }

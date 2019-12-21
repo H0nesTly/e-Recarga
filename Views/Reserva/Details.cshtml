@@ -4,87 +4,89 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container top-pad">
+    <div class="row">
+        <div class="col">
+            <h4>Reserva</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UtilizadorID)
+                </dt>
 
-<div>
-    <h4>Reserva</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UtilizadorID)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UtilizadorReserva.Nome)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UtilizadorReserva.Nome)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EstacaoCarregamentoID)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EstacaoCarregamentoID)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EstacaoCarregamento.Designacao)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EstacaoCarregamento.Designacao)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PostoID)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostoID)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PostoID)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PostoID)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TomadaPostoID)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TomadaPostoID)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TomadaPostoID)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TomadaPostoID)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Total)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Total)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Total)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataInicioReserva)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataInicioReserva)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DataInicioReserva)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataInicioReserva)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataFimReserva)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataFimReserva)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DataFimReserva)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataFimReserva)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataReserva)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataReserva)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DataReserva)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataReserva)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cancelada)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cancelada)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Cancelada)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cancelada)
-        </dd>
+            </dl>
 
-
-    </dl>
+            <p>
+                @Html.ActionLink("Voltar", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Voltar", "Index")
-</p>

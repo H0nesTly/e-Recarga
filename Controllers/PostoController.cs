@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using e_Recarga.Models;
+using e_Recarga.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace e_Recarga.Controllers
@@ -24,7 +25,6 @@ namespace e_Recarga.Controllers
             bool isSAdmin = User.IsInRole("SuperAdmin");
             bool isAdmin = User.IsInRole("Admin");
 
-          
             var postos = db.Postoes.Include(p => p.EstacaoCarregamentoPosto).Where(p => p.EstacaoCarregamentoPosto.UtilizadorID == utilizadorSessaoID || isAdmin || isSAdmin);
             return View(postos.ToList());
         }
@@ -42,7 +42,22 @@ namespace e_Recarga.Controllers
             {
                 return HttpNotFound();
             }
-            return View(posto);
+
+            DetalhesPostoViewModel tomada = new DetalhesPostoViewModel()
+            {
+                correnteCarregamento = posto.CorrenteCarregamento,
+                estacaoDeCarregamento = posto.EstacaoCarregamentoPosto.UtilizadorEstacao.Nome,
+                numeroDeTomadas = db.TomadaPostoes.Where(x => x.PostoID == id).Count(),
+                tomadaPostoViewModel = new TomadaPostoViewModel()
+                {
+                    codeDoPosto = id.Value,
+                    PrecoMinuto = 0,
+                    Potencias = db.Potencias.ToList(),
+                    Tomadas = db.Tomadas.ToList()
+                }
+            };
+
+            return View(tomada);
         }
 
         // GET: Posto/Create
