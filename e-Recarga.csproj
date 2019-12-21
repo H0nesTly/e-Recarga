@@ -172,6 +172,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EstacaoCarregamentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Models\CustomDataAnnotations\DateLessThanOtherDateAttribute.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ModelERecarga.cs" />
     <Compile Include="Models\ViewModels\ReservaViewModel.cs" />
@@ -220,7 +222,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -316,7 +317,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-
     <!--<None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr\event.js" />
@@ -342,7 +342,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />-->
-
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -418,6 +417,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Dashboard\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -432,9 +432,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-
     <!---<EmbeddedResource Include="Migrations\201912061102167_InitialCreate.resx">
       <DependentUpon>201912061102167_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -444,7 +442,6 @@
     <EmbeddedResource Include="Migrations\201912131749249_InitalCreate1.resx">
       <DependentUpon>201912131749249_InitalCreate1.cs</DependentUpon>
     </EmbeddedResource>-->
-
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
