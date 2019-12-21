@@ -165,8 +165,6 @@ namespace e_Recarga.Models
             dbContext.Tomadas.Add(tomada3);
             dbContext.Tomadas.Add(tomada4);
 
-
-
             Potencia potencia1 = new Potencia()
             {
                 PotenciaNominalKw = "3.68",
