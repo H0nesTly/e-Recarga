@@ -399,6 +399,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\TomadaPosto\_AddTomadaPosto.cshtml" />
+    <Content Include="Views\TomadaPosto\_listMyTomadaPosto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

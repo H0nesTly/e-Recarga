@@ -57,10 +57,12 @@
                 </div>
             </div>
         </div>
+
+        @Html.Partial("~/Views/TomadaPosto/_AddTomadaPosto.cshtml", Model.tomadaPostoViewModel)
+        @Html.Partial("~/Views/TomadaPosto/_listMyTomadaPosto.cshtml", Model.tomadaPostoLista)
         <p>
             @Html.ActionLink("Back to List", "Index")
         </p>
     </div>
 </div>
 
-@Html.Partial("~/Views/TomadaPosto/_AddTomadaPosto.cshtml", Model.tomadaPostoViewModel)

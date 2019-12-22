@@ -54,7 +54,15 @@ namespace e_Recarga.Controllers
                     PrecoMinuto = 0,
                     Potencias = db.Potencias.ToList(),
                     Tomadas = db.Tomadas.ToList()
-                }
+                },
+                tomadaPostoLista = db.TomadaPostoes
+                        .Where(x => x.PostoID == posto.ID)
+                        .Select(x => new TomadaPostoListaViewModel
+                        {
+                            potencia = x.PotenciaTomadaPosto.TipoPotencia,
+                            precoPorMinuto = x.PrecoMinuto,
+                            tomadaNome = x.TomadaTomadaPosto.TipoTomada
+                        })
             };
 
             return View(tomada);
