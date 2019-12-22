@@ -18,6 +18,7 @@ namespace e_Recarga.Models.ViewModels
         public int numeroDeTomadas { get; set; }
 
         public TomadaPostoViewModel tomadaPostoViewModel { get; set; }
+        public IEnumerable<TomadaPostoListaViewModel> tomadaPostoLista { get; set; }
 
     }
 
@@ -44,5 +45,17 @@ namespace e_Recarga.Models.ViewModels
 
         public virtual ICollection<Potencia> Potencias { get; set; }
         public virtual ICollection<Tomada> Tomadas { get; set; }
+    }
+
+    public class TomadaPostoListaViewModel
+    {
+        [Display(Name = "Tipo Tomada")]
+        public string tomadaNome { get; set; }
+
+        [Display(Name = "Potencia")]
+        public string potencia { get; set; }
+
+        [Display(Name = "Preco Por Minuto")]
+        public double precoPorMinuto { get; set; }
     }
 }
