@@ -1,0 +1,47 @@
+﻿@model IEnumerable<e_Recarga.Models.ViewModels.TomadaPostoListaViewModel>
+<hr />
+<div class="col-md-10 mb-3">
+    <h4>Tomadas registadas</h4>
+</div>
+<hr />
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.tomadaNome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.potencia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.precoPorMinuto)
+                </th>
+
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.tomadaNome)
+                </td>
+                <td>
+
+                    @Html.DisplayNameFor(model => model.potencia)
+
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.precoPorMinuto)
+                </td>
+            </tr>
+
+        }
+    </table>
+}
+else
+{
+    <p>Posto não contem nenhum Posto</p>
+}
