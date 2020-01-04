@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace e_Recarga.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,SuperAdmin,RedeProprietaria")]
     public class DashboardController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

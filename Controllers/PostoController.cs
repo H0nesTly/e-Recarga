@@ -59,7 +59,7 @@ namespace e_Recarga.Controllers
                         .Where(x => x.PostoID == posto.ID)
                         .Select(x => new TomadaPostoListaViewModel
                         {
-                            potencia = x.PotenciaTomadaPosto.TipoPotencia,
+                            potencia = x.PotenciaTomadaPosto.PotenciaNominalKw,
                             precoPorMinuto = x.PrecoMinuto,
                             tomadaNome = x.TomadaTomadaPosto.TipoTomada
                         })

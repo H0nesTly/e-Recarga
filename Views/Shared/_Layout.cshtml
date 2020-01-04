@@ -32,30 +32,31 @@
                                 <li class="nav-item">
                                     @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })
                                 </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Estação Carregamento", "Index", "EstacaoCarregamento", null, new { @class = "nav-link " })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Posto", "Index", "Posto", null, new { @class = "nav-link " })
+                                </li>
                             }
                             else
                             {
                                 if (User.IsInRole("RedeProprietaria"))
                                 {
-
+                                    <li class="nav-item">
+                                        @Html.ActionLink("DashBoard", "Index", "Dashboard", null, new { @class = "nav-link " })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Estação Carregamento", "Index", "EstacaoCarregamento", null, new { @class = "nav-link " })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Posto", "Index", "Posto", null, new { @class = "nav-link " })
+                                    </li>
                                 }
                             }
                             <li class="nav-item">
-                                @Html.ActionLink("Estação Carregamento", "Index", "EstacaoCarregamento", null, new { @class = "nav-link " })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Posto", "Index", "Posto", null, new { @class = "nav-link " })
-                            </li>
-                            <li class="nav-item">
                                 @Html.ActionLink("Reserva", "Index", "Reserva", null, new { @class = "nav-link " })
                             </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Tomada Posto", "Index", "TomadaPosto", null, new { @class = "nav-link " })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("DashBoard", "Index", "Dashboard", null, new { @class = "nav-link " })
-                            </li>
-
                         }
                         @Html.Partial("_LoginPartial")
                     </ul>

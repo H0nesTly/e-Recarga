@@ -65,7 +65,7 @@ namespace e_Recarga.Controllers
 
                 db.Veiculos.Add(veiculoObj);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("EditDadosPessoais", "Manage");
             }
 
             return View(veiculo);

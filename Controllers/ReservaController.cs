@@ -229,6 +229,7 @@ namespace e_Recarga.Controllers
 
 
         // GET: Reserva/Create
+        [Authorize(Roles = "UtilizadorNormal")]
         public ActionResult Create()
         {
             if (!Request.IsAuthenticated)
@@ -269,6 +270,7 @@ namespace e_Recarga.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "UtilizadorNormal")]
         public ActionResult Create(ReservaViewModel reservaViewModel)
         {
             Reserva reserva = null;

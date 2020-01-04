@@ -68,10 +68,10 @@ namespace e_Recarga.Controllers
 
                 db.TomadaPostoes.Add(tomadaPosto);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Posto", new { id = tomadaPostoView.codeDoPosto });
             }
 
-            return View(tomadaPostoView);
+            return RedirectToAction("Details", "Posto", new { id = tomadaPostoView.codeDoPosto} );
         }
 
         // GET: TomadaPosto/Edit/5

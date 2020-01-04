@@ -12,9 +12,12 @@
         <hr />
 
         <div class="row col">
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
+            @if (User.IsInRole("UtilizadorNormal"))
+            {
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+            }
             <table class="table">
                 <tr>
                     <th>

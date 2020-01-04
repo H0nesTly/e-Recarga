@@ -15,7 +15,7 @@
 
                 <div class="modal-body">
                     <div class="form-horizontal">
-                        <h4>Veiculo</h4>
+                        <h4>Tomada</h4>
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.codeDoPosto)
@@ -37,7 +37,7 @@
                         <div class="form-row">
                             @Html.LabelFor(model => model.PotenciaID, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-3 mb-3">
-                                @Html.DropDownListFor(model => model.PotenciaID, new SelectList(Model.Potencias, "ID", "TipoPotencia"), "Selecione Potencia", htmlAttributes: new { @class = "form-control"})
+                                @Html.DropDownListFor(model => model.PotenciaID, new SelectList(Model.Potencias, "ID", "PotenciaNominalKw"), "Selecione Potencia", htmlAttributes: new { @class = "form-control"})
 
                                 @Html.ValidationMessageFor(model => model.PotenciaID, "", new { @class = "text-danger" })
                             </div>
